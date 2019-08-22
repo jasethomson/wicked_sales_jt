@@ -8,7 +8,10 @@ export default class App extends React.Component {
     return (
       <div>
         <Header text="Wicked Sales" />
-        <ProductListItem />
+        <ProductListItem
+          product="Product Name"
+          cost="$0.00"
+          description="Please buy my product. Buy one, get one free!" />
       </div>
 
     );
