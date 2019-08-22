@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './header';
 import ProductListItem from './product-list-item';
+// import ProductList from './product-list';
 
 export default class App extends React.Component {
   render() {
@@ -8,9 +9,9 @@ export default class App extends React.Component {
       <div>
         <Header text="Wicked Sales" />
         <ProductListItem
-          text="Product Name"
+          text="Product"
           cost="$0.00"
-          description="This is an awesome product, buy me or else..." />
+          description="buy me!"/>
       </div>
 
     );
