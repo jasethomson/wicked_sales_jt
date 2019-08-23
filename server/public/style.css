@@ -1,0 +1,12 @@
+.logo {
+  height: 13vh;
+  width: 8vw;
+  margin: auto;
+}
+.headerContainer {
+  display: flex;
+  justify-content: center;
+}
+.title{
+  font-family: 'Lexend Zetta', sans-serif;
+}

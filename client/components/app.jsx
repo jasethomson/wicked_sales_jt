@@ -1,7 +1,22 @@
 import React from 'react';
+import Header from './header';
+import ProductList from './product-list';
 
 export default class App extends React.Component {
+
   render() {
-    return null;
+    return (
+      <div>
+        <div className="headerContainer d-flex">
+          <Header text="Wicked Sales" />
+        </div>
+        <div className="container">
+          <div className="d-flex justify-content-center row">
+            <ProductList />
+          </div>
+        </div>
+      </div>
+
+    );
   }
 }
