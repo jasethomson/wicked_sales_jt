@@ -11,7 +11,6 @@ export default class App extends React.Component {
         <div className="d-flex justify-content-between ">
           <ProductList />
         </div>
-
       </div>
 
     );
