@@ -7,9 +7,13 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Header text="Wicked Sales" />
-        <div className="d-flex justify-content-between ">
-          <ProductList />
+        <div className="headerContainer d-flex">
+          <Header text="Wicked Sales" />
+        </div>
+        <div className="container">
+          <div className="d-flex justify-content-center row">
+            <ProductList />
+          </div>
         </div>
       </div>
 
