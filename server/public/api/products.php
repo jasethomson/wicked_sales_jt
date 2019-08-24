@@ -9,7 +9,7 @@ $query = "SELECT * FROM `products`";
 $result = mysqli_query($conn, $query);
 
 if (!$result) {
-  throw new Exception(mysqli_error($conn));
+  throw new Exception("Connect failed: " . mysqli_error($conn));
 }
 
 $output = [];
