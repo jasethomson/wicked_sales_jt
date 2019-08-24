@@ -25,7 +25,7 @@ class App extends React.Component {
         </div>
         <div className="container">
           <div className="d-flex justify-content-center row">
-            <ProductList />
+            <ProductList setView = { this.setView}/>
           </div>
         </div>
         <ProductDetails />

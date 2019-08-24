@@ -27,6 +27,7 @@ class ProductDetails extends React.Component {
         <div className="d-flex">
           <ProductListItem
             key={this.state.product.id}
+            id={this.state.product.id}
             name={this.state.product.name}
             price={this.state.product.price}
             image={this.state.product.image}
