@@ -12,11 +12,15 @@ class ProductDetails extends React.Component {
     this.price = null;
     this.image = null;
     this.shortDescription = null;
+    this.endpoint = this.setId();
 
   }
-
+  setId() {
+    let endpoint = '/api/products.php?id=' + this.props.view.id;
+    return endpoint;
+  }
   componentDidMount() {
-    fetch('/api/products.php?id=1')
+    fetch(this.endpoint)
       .then(res => res.json())
       .then(product => this.setState({ product }));
   }
@@ -31,7 +35,8 @@ class ProductDetails extends React.Component {
             name={this.state.product.name}
             price={this.state.product.price}
             image={this.state.product.image}
-            shortDescription={this.state.product.shortDescription} />
+            shortDescription={this.state.product.shortDescription}
+            longDescription={this.state.product.longDescription} />
         </div>
       );
     } else {
