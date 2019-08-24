@@ -10,7 +10,6 @@ $result = mysqli_query($conn, $query);
 
 if (!$result) {
   throw new Exception(mysqli_error($conn));
-  exit();
 }
 
 $output = [];
