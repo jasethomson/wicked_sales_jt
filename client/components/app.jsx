@@ -18,20 +18,24 @@ class App extends React.Component {
     this.setState({ view: { name, params } });
   }
   render() {
-    return (
-      <div>
-        <div className="headerContainer d-flex">
-          <Header text="Wicked Sales" />
-        </div>
-        <div className="container">
-          <div className="d-flex justify-content-center row">
-            <ProductList setView = { this.setView}/>
+    if (this.state.view.name === 'catalog') {
+      return (
+        <div>
+          <div className="headerContainer d-flex">
+            <Header text="Wicked Sales" />
+          </div>
+          <div className="container">
+            <div className="d-flex justify-content-center row">
+              <ProductList setView={this.setView} />
+            </div>
           </div>
         </div>
-        <ProductDetails />
-      </div>
-
-    );
+      );
+    } else {
+      return (
+        <ProductDetails setView={this.setView} view={this.state.view.params}/>
+      );
+    }
   }
 }
 
