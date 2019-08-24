@@ -15,12 +15,10 @@ $query = "SELECT * FROM `products`" . $whereClause;
 $result = mysqli_query($conn, $query);
 
 if (!$result) {
-  throw new Exception(mysqli_error($conn));
-  exit();
+  throw new Exception("Connect Failed: " . mysqli_error($conn));
 }
 
 $output = [];
-
 if (!(mysqli_num_rows($result))) {
   print($output);
   exit();
