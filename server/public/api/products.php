@@ -4,10 +4,14 @@ require_once 'functions.php';
 set_exception_handler( 'error_handler' );
 startup();
 
-if (!empty($_GET['id'])) {
-  $whereClause = "WHERE `id`=" . $_GET['id'];
-} else {
+if (empty($_GET['id'])) {
   $whereClause = "";
+} else {
+  if(is_numeric($_GET['id'])){
+    $whereClause = "WHERE `id`=" . $_GET['id'];
+  } else {
+    throw new Exception("id needs to be a number" . mysqli_error($conn));
+  }
 }
 
 require_once 'db_connection.php';
