@@ -16,22 +16,16 @@ if (empty($_GET['id'])) {
 $query = "SELECT * FROM `products`" . $whereClause;
 $result = mysqli_query($conn, $query);
 
-$row_cnt = mysqli_num_rows($result);
-if($row_cnt === 0){
-  throw new Exception("Invalid ID: " . $_GET['id'] . mysqli_error($conn));
-}
-
 if (!$result) {
   throw new Exception("Connect Failed: " . mysqli_error($conn));
 }
 
-$output = [];
-if (!(mysqli_num_rows($result))) {
-  print($output);
-  exit();
+$row_cnt = mysqli_num_rows($result);
+if ($row_cnt === 0) {
+  throw new Exception("Invalid ID: " . $_GET['id'] . mysqli_error($conn));
 }
 
-
+$output = [];
 while ($row = mysqli_fetch_assoc($result)) {
   $output[] = $row;
 }
