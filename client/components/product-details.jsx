@@ -28,15 +28,18 @@ class ProductDetails extends React.Component {
   render() {
     if (this.state.product) {
       return (
-        <div className="d-flex">
-          <ProductListItem
-            key={this.state.product.id}
-            id={this.state.product.id}
-            name={this.state.product.name}
-            price={this.state.product.price}
-            image={this.state.product.image}
-            shortDescription={this.state.product.shortDescription}
-            longDescription={this.state.product.longDescription} />
+        <div>
+          <button onClick={() => { this.props.setView('catalog', {}); }}>Back To Catalog</button>
+          <div className="d-flex">
+            <ProductListItem
+              key={this.state.product.id}
+              id={this.state.product.id}
+              name={this.state.product.name}
+              price={this.state.product.price}
+              image={this.state.product.image}
+              shortDescription={this.state.product.shortDescription}
+              longDescription={this.state.product.longDescription} />
+          </div>
         </div>
       );
     } else {

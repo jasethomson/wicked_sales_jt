@@ -33,7 +33,10 @@ class App extends React.Component {
       );
     } else {
       return (
-        <ProductDetails setView={this.setView} view={this.state.view.params}/>
+        <div>
+
+          <ProductDetails setView={this.setView} view={this.state.view.params}/>
+        </div>
       );
     }
   }
