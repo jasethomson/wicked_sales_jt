@@ -1,5 +1,4 @@
 import React from 'react';
-import ProductListItem from './product-list-item';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -7,13 +6,7 @@ class ProductDetails extends React.Component {
     this.state = {
       product: null
     };
-    this.id = null;
-    this.name = null;
-    this.price = null;
-    this.image = null;
-    this.shortDescription = null;
     this.endpoint = this.setId();
-
   }
   setId() {
     let endpoint = '/api/products.php?id=' + this.props.view.id;
@@ -28,17 +21,24 @@ class ProductDetails extends React.Component {
   render() {
     if (this.state.product) {
       return (
-        <div>
-          <button onClick={() => { this.props.setView('catalog', {}); }}>Back To Catalog</button>
-          <div className="d-flex">
-            <ProductListItem
-              key={this.state.product.id}
-              id={this.state.product.id}
-              name={this.state.product.name}
-              price={this.state.product.price}
-              image={this.state.product.image}
-              shortDescription={this.state.product.shortDescription}
-              longDescription={this.state.product.longDescription} />
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <button className="btn btn-link" onClick={() => { this.props.setView('catalog', {}); }}>Back To Catalog</button>
+              <div className="card row">
+                <div className="card-body row">
+                  <div className="col-6">
+                    <img className="card-img-top" src={this.state.product.image} alt="Card image cap"></img>
+                  </div>
+                  <div className="col-6">
+                    <h3 className="card-title" onClick={() => this.props.setView('details', { id: this.state.product.id })}>{this.state.product.name}</h3>
+                    <p className="card-text" style={{ 'font-size': '1.5rem' }}>${((this.state.product.price / 100).toFixed(2))}</p>
+                    <p className="card-text" style={{ 'font-size': '1.4rem' }}>{this.state.product.shortDescription}</p>
+                  </div>
+                  <p className="card-text col-12 mt-3" style={{ 'font-size': '1.2rem' }}>{this.state.product.longDescription}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       );

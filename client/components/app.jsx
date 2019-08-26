@@ -21,11 +21,11 @@ class App extends React.Component {
     if (this.state.view.name === 'catalog') {
       return (
         <div>
-          <div className="headerContainer d-flex">
+          <div className="headerContainer">
             <Header text="Wicked Sales" />
           </div>
           <div className="container">
-            <div className="d-flex justify-content-center row">
+            <div className="justify-content-center row">
               <ProductList setView={this.setView} />
             </div>
           </div>
@@ -33,8 +33,10 @@ class App extends React.Component {
       );
     } else {
       return (
-        <div>
-
+        <div className="d-flex justify-content-center flex-column">
+          <div className="headerContainer">
+            <Header text="Wicked Sales" />
+          </div>
           <ProductDetails setView={this.setView} view={this.state.view.params}/>
         </div>
       );
