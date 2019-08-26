@@ -1,16 +1,16 @@
 <?php
 
 require_once 'functions.php';
-require_once 'db_connection.php';
 set_exception_handler( 'error_handler' );
 startup();
+require_once 'db_connection.php';
 
 if (empty($_GET['id'])) {
   $whereClause = "";
 } elseif (is_numeric($_GET['id'])){
-    $whereClause = "WHERE `id`=" . $_GET['id'];
+  $whereClause = "WHERE `id`=" . $_GET['id'];
   } else {
-    throw new Exception("id needs to be a number" . mysqli_error($conn));
+  throw new Exception("id needs to be a number");
  }
 
 $query = "SELECT * FROM `products`" . $whereClause;
@@ -21,7 +21,7 @@ if (!$result) {
 }
 
 $row_cnt = mysqli_num_rows($result);
-if ($row_cnt === 0) {
+if (!empty($_GET['id']) && $row_cnt === 0) {
   throw new Exception("Invalid ID: " . $_GET['id'] . mysqli_error($conn));
 }
 
