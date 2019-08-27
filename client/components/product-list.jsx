@@ -12,6 +12,7 @@ class ProductList extends React.Component {
     this.getProducts();
   }
   getProducts() {
+
     fetch('/api/products.php')
       .then(res => res.json())
       .then(products => this.setState({ products }));
@@ -22,10 +23,12 @@ class ProductList extends React.Component {
         return (
           <ProductListItem
             key={product.id}
+            id={product.id}
             name={product.name}
             price={product.price}
             image={product.image}
-            shortDescription={product.shortDescription}/>
+            shortDescription={product.shortDescription}
+            setView={this.props.setView} />
         );
       })
     );
