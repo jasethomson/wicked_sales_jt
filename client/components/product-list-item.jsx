@@ -2,7 +2,7 @@ import React from 'react';
 
 function ProductListItem(props) {
   return (
-    <div className="col-3 card d-flex mx-1 my-2">
+    <div className="col-4 card d-flex my-2">
       <div>
         <img className="card-img-top mt-4" style={{ height: '180px' }}src={props.image} alt="Card image cap"></img>
       </div>
