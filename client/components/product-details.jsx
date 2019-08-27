@@ -6,14 +6,9 @@ class ProductDetails extends React.Component {
     this.state = {
       product: null
     };
-    this.endpoint = this.setId();
-  }
-  setId() {
-    let endpoint = '/api/products.php?id=' + this.props.view.id;
-    return endpoint;
   }
   componentDidMount() {
-    fetch(this.endpoint)
+    fetch('/api/products.php?id=' + this.props.view.id)
       .then(res => res.json())
       .then(product => this.setState({ product }));
   }
