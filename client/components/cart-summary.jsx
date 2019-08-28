@@ -18,7 +18,9 @@ function CartSummary(props) {
       })
     );
   } else {
-    return 'No items in cart';
+    return (
+      <div>No items in cart</div>
+    );
   }
 }
 
