@@ -9,7 +9,7 @@ function Header(props) {
       </div>
       <div className="col d-flex justify-content-end align-self-end">
         <div className="mr-2">{props.cartItemCount} Items</div>
-        <i className="fas fa-shopping-cart fa-2x"></i>
+        <i className="fas fa-shopping-cart fa-2x" onClick={() => props.setView('cart', {})}></i>
       </div>
     </div>
   );

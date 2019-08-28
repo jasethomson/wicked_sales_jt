@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './header';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
+import CartSummary from './cart-summary';
 
 class App extends React.Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length}/>
+            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
           <div className="container">
             <div className="row">
@@ -54,13 +55,27 @@ class App extends React.Component {
           </div>
         </div>
       );
+    } else if (this.state.view.name === 'details') {
+      return (
+        <div>
+          <div className="container">
+            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
+          </div>
+          <ProductDetails setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
+        </div>
+      );
     } else {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length}/>
+            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
-          <ProductDetails setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
+          <div className="container">
+            <div className="row">
+              <button className="btn btn-link" onClick={() => { this.setView('catalog', {}); }}>Back To Catalog</button>
+              <CartSummary cart={this.state.cart}/>
+            </div>
+          </div>
         </div>
       );
     }
