@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './header';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
+import CartSummary from './cart-summary';
 
 class App extends React.Component {
   constructor(props) {
@@ -40,12 +41,20 @@ class App extends React.Component {
         this.setState({ cart: allProducts });
       });
   }
+  sumCost() {
+    let total = null;
+    for (let priceIndex = 0; priceIndex < this.state.cart.length; priceIndex++) {
+
+      total += parseFloat(this.state.cart[priceIndex].price);
+    }
+    return total;
+  }
   render() {
     if (this.state.view.name === 'catalog') {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length}/>
+            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
           <div className="container">
             <div className="row">
@@ -54,13 +63,33 @@ class App extends React.Component {
           </div>
         </div>
       );
+    } else if (this.state.view.name === 'details') {
+      return (
+        <div>
+          <div className="container">
+            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
+          </div>
+          <ProductDetails setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
+        </div>
+      );
     } else {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length}/>
+            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
-          <ProductDetails setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
+          <div className="container">
+            <div className="row justify-self-start">
+              <button className="d-flex col btn btn-link" onClick={() => { this.setView('catalog', {}); }}>Back To Catalog</button>
+            </div>
+            <div className="row justify-self-start">
+              <h4 className="col">My Cart</h4>
+            </div>
+            <CartSummary cart={this.state.cart} />
+            <div className="row justify-self-start">
+              <h4 className="col">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
+            </div>
+          </div>
         </div>
       );
     }
