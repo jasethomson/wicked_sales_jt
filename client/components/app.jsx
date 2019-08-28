@@ -44,10 +44,22 @@ class App extends React.Component {
   sumCost() {
     let total = null;
     for (let priceIndex = 0; priceIndex < this.state.cart.length; priceIndex++) {
-
       total += parseFloat(this.state.cart[priceIndex].price);
     }
     return total;
+  }
+  placeOrder(object) {
+    const req = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(object)
+    };
+    fetch('/api/cart.php', req)
+      .then(res => res.json())
+      .then(item => {
+        const allProducts = this.state.cart.concat(item);
+        this.setState({ cart: allProducts });
+      });
   }
   render() {
     if (this.state.view.name === 'catalog') {
