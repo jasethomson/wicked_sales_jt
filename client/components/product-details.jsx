@@ -28,6 +28,7 @@ class ProductDetails extends React.Component {
                     <h3 className="card-title" onClick={() => this.props.setView('details', { id: this.state.product.id })}>{this.state.product.name}</h3>
                     <p className="card-text" style={{ 'fontSize': '1.5rem' }}>${((this.state.product.price / 100).toFixed(2))}</p>
                     <p className="card-text" style={{ 'fontSize': '1.4rem' }}>{this.state.product.shortDescription}</p>
+                    <button onClick={() => this.props.addToCart(this.state.product)}>Add to Cart</button>
                   </div>
                   <p className="card-text col-12 mt-3" style={{ 'fontSize': '1.2rem' }}>{this.state.product.longDescription.split('\n').map(function (item, key) {
                     return (
