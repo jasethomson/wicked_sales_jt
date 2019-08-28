@@ -71,10 +71,10 @@ class App extends React.Component {
             <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
           <div className="container">
-            <div className="row">
-              <button className="btn btn-link" onClick={() => { this.setView('catalog', {}); }}>Back To Catalog</button>
-              <CartSummary cart={this.state.cart}/>
+            <div className="row justify-self-start">
+              <button className="d-flex col btn btn-link" onClick={() => { this.setView('catalog', {}); }}>Back To Catalog</button>
             </div>
+            <CartSummary cart={this.state.cart} />
           </div>
         </div>
       );
