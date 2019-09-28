@@ -56,8 +56,8 @@ class CheckoutForm extends React.Component {
           </div>
           <div className="container col-10">
             <div className=" row justify-content-between">
-              <button className="d-flex col-3 mt-3 px-0 btn btn-link" onClick={() => { this.props.setView('catalog'); }}>Continue Shopping</button>
-              <button className="d-flex col-2 mt-3 btn btn-outline-dark">Place Order</button>
+              <button type="reset" className="d-flex col-3 mt-3 px-0 btn btn-link" onReset={() => { this.props.setView('catalog'); }}>Continue Shopping</button>
+              <button type="submit" className="d-flex col-2 mt-3 btn btn-outline-dark" onSubmit={() => { this.props.placeOrder('catalog', {}); }}>Place Order</button>
             </div>
           </div>
         </form>
