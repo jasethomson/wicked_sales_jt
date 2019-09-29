@@ -1,4 +1,7 @@
 .logo {
-  height: 20vh;
-  width: 25vw;
+  height: 5vh;
+  width: 3vw;
+}
+.title{
+  font-family: 'Lexend Zetta', sans-serif;
 }
