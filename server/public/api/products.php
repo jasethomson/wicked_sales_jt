@@ -14,7 +14,9 @@ if (empty($_GET['id'])) {
     throw new Exception("id needs to be a number");
   }
 
-  $query = "SELECT * FROM `products`" . $whereClause;
+  $query = "SELECT * FROM `products`
+  JOIN images ON products.id = images.product_id" . $whereClause;
+
   $result = mysqli_query($conn, $query);
 
   if (!$result) {
