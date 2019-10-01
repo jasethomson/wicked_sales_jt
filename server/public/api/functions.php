@@ -10,9 +10,12 @@ function error_handler( $error ){
   print($json_output);
 }
 
-function startup()
-{
+function startup(){
   header("Content-type:application/json");
+}
+
+function getBodyData(){
+
 }
 
 ?>
