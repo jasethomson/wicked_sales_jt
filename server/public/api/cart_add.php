@@ -45,7 +45,20 @@ $startTransactionQuery = "START TRANSACTION";
 $transactionResult = mysqli_query($conn, $startTransactionQuery);
 
 if(!$transactionResult){
-  throw new Exception("Connect Failed: " . mysqli_error($conn));
+  throw new Exception("failed to get transaction result");
+}
+
+if($cartID === false){
+  $insertQuery = "INSERT INTO `cart` SET `created`=NOW()";
+  $insertResult = mysqli_query($conn, $insertQuery);
+  if(!$insertResult){
+    throw new Exception("failed to get insert result");
+  }
+  if(mysql_affected_rows() !== 1){
+    throw new Exception("affected rows is not equal to 1");
+  }
+  $cartID = mysqli_insert_id($conn);
+  $_SESSION['cartID']
 }
 
 
