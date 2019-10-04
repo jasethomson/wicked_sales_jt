@@ -47,8 +47,6 @@ if(!$transactionResult){
   throw new Exception("failed to get transaction result");
 }
 
-var_dump("cartID: " . $cartID);
-
 if($cartID === false){
   $insertQuery = "INSERT INTO `cart` SET `created`=NOW()";
   $insertResult = mysqli_query($conn, $insertQuery);
@@ -62,23 +60,18 @@ if($cartID === false){
   }
 
   $cartID = mysqli_insert_id($conn);
-  // $_SESSION['cartID'] = $cartID;
+  $_SESSION['cartID'] = $cartID;
 }
 
-var_dump("cartID" . $cartID);
-
-//  ON DUPLICATE KEY UPDATE count=count + 1";
 $price  = $productData[0]['price'];
 
 $insertToTableQuery = "INSERT INTO `cartItems`
 (`count`, `productID`, `price`, `added`, `cartID`)
  VALUES (1, $id, $price, NOW(), $cartID)
- ON DUPLICATE KEY UPDATE count=count+1";
+ ON DUPLICATE KEY UPDATE `count`=`count`+1";
 
 $insertToTableResult = mysqli_query($conn, $insertToTableQuery);
 
-var_dump("insertToTableQuery: " . $insertToTableQuery);
-var_dump("insertToTableResult: " , $insertToTableResult);
 if(!$insertToTableResult){
   throw new Exception("failed to get insert result" . $insertToTableResult);
 }
