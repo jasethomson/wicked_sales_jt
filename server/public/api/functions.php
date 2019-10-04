@@ -10,9 +10,14 @@ function error_handler( $error ){
   print($json_output);
 }
 
-function startup()
-{
+function startup(){
   header("Content-type:application/json");
+}
+
+function getBodyData(){
+  $bodyData = file_get_contents('php://input');
+  $assocData = json_decode($bodyData, true);
+  return $assocData;
 }
 
 ?>

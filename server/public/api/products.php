@@ -1,6 +1,6 @@
 <?php
 
-if (empty($_GET['id'])) {
+// if (empty($_GET['id'])) {
   require_once 'functions.php';
   set_exception_handler('error_handler');
   startup();
@@ -14,7 +14,11 @@ if (empty($_GET['id'])) {
     throw new Exception("id needs to be a number");
   }
 
-  $query = "SELECT * FROM `products`" . $whereClause;
+  $query = "SELECT products.id, products.name, products.price, products.shortDescription,
+  GROUP_CONCAT(images.url) AS imageUrl
+  FROM `products` JOIN `images` ON products.id = images.product_id
+  GROUP BY images.product_id" . $whereClause;
+
   $result = mysqli_query($conn, $query);
 
   if (!$result) {
@@ -28,13 +32,14 @@ if (empty($_GET['id'])) {
 
   $output = [];
   while ($row = mysqli_fetch_assoc($result)) {
+    $row['imageUrl'] = explode( ',', $row['imageUrl']);
     $output[] = $row;
   }
 
   $json_output = json_encode($output);
   print($json_output);
-} else {
-  readfile('dummy-product-details.json');
-}
+// } else {
+//   readfile('dummy-product-details.json');
+// }
 
 ?>
