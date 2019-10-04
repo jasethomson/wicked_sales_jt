@@ -2,37 +2,36 @@
 
 require_once 'cart.php';
 
-if(INTERNAL){
+if(!INTERNAL){
   exit("Direct access not allowed.");
 }
 
-$bodyData = intval(getBodyData());
+$bodyData = getBodyData();
 
-if($bodyData <= 0){
+if($bodyData['id'] <= 0){
   throw new Exception("Id is invalid");
 }
 
-if($bodyData['id']){
-  $id = $bodyData['id'];
-}
+$id = $bodyData['id'];
 
-if($_SESSION['cartID']){
+if(array_key_exists('cartID', $_SESSION)){
   $cartID = $_SESSION['cartID'];
 } else {
   $cartID = false;
 }
 
-$priceQuery = "SELECT `price` FROM `products` WHERE `id` = " . $cardID;
+$priceQuery = "SELECT `price` FROM `products` WHERE `id` = " . $id;
 
 $priceResult = mysqli_query($conn, $priceQuery);
 
 if(!$priceResult){
-  throw new Exception("price result failed");
+  throw new Exception("price result connection failed " . $id);
 }
 
 $row_cnt = mysqli_num_rows($priceResult);
+
 if($row_cnt === 0){
-  throw new Exception("no price rows data came back");
+  throw new Exception("invalid product id " . $id);
 }
 
 $productData = [];
@@ -48,35 +47,47 @@ if(!$transactionResult){
   throw new Exception("failed to get transaction result");
 }
 
+var_dump("cartID: " . $cartID);
+
 if($cartID === false){
   $insertQuery = "INSERT INTO `cart` SET `created`=NOW()";
   $insertResult = mysqli_query($conn, $insertQuery);
+
   if(!$insertResult){
     throw new Exception("failed to get insert result");
   }
-  if(mysql_affected_rows() !== 1){
+
+  if(mysqli_affected_rows($conn) < 1){
     throw new Exception("affected rows is not equal to 1");
   }
+
   $cartID = mysqli_insert_id($conn);
-  $_SESSION['cartID'] = $cartID;
+  // $_SESSION['cartID'] = $cartID;
 }
 
+var_dump("cartID" . $cartID);
 
-$insertToTableQuery = "INSERT INTO `cartItems` SET count=1, productID=$id,
- price=$priceResult, added=NOW(), cartID=$cartID
- ON DUPLICATE KEY UPDATE count=count + 1";
+//  ON DUPLICATE KEY UPDATE count=count + 1";
+$price  = $productData[0]['price'];
+
+$insertToTableQuery = "INSERT INTO `cartItems`
+(`count`, `productID`, `price`, `added`, `cartID`)
+ VALUES (1, $id, $price, NOW(), $cartID)
+ ON DUPLICATE KEY UPDATE count=count+1";
 
 $insertToTableResult = mysqli_query($conn, $insertToTableQuery);
 
+var_dump("insertToTableQuery: " . $insertToTableQuery);
+var_dump("insertToTableResult: " , $insertToTableResult);
 if(!$insertToTableResult){
-  throw new Exception("failed to get insert result");
+  throw new Exception("failed to get insert result" . $insertToTableResult);
 }
 
-if (mysql_affected_rows() !== 1) {
+if (mysqli_affected_rows($conn) < 1) {
   mysqli_query($conn, "ROLLBACK");
   throw new Exception("affected rows is not equal to 1");
 }
-
 mysqli_query($conn, "COMMIT");
+
 
 ?>

@@ -2,7 +2,7 @@
 
 require_once 'cart.php';
 
-if(INTERNAL){
+if(!INTERNAL){
 exit("Direct access not allowed.");
 }
 
