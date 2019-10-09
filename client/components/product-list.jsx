@@ -17,6 +17,7 @@ class ProductList extends React.Component {
       .then(products => this.setState({ products }));
   }
   render() {
+
     return (
       this.state.products.map(product => {
         return (
