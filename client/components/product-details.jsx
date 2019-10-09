@@ -30,15 +30,7 @@ class ProductDetails extends React.Component {
                     <p className="card-text" style={{ 'fontSize': '1.4rem' }}>{this.state.product.shortDescription}</p>
                     <button className="btn btn-outline-dark" onClick={() => this.props.addToCart(this.state.product)}>Add to Cart</button>
                   </div>
-                  <p className="card-text col-12 mt-3" style={{ 'fontSize': '1.2rem' }}>{this.state.product.longDescription.split('\n').map(function (item, key) {
-                    return (
-                      <span key={key}>
-                        {item}
-                        <br />
-                        <br />
-                      </span>
-                    );
-                  })}</p>
+                  <p className="card-text col-12 mt-3" style={{ 'fontSize': '1.2rem' }}>{this.state.product.longDescription}</p>
                 </div>
               </div>
             </div>

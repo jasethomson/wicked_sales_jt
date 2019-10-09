@@ -14,7 +14,7 @@
     throw new Exception("id needs to be a number");
   }
 
-  $query = "SELECT products.id, products.name, products.price, products.shortDescription,
+  $query = "SELECT products.id, products.name, products.price, products.shortDescription, products.longDescription,
   GROUP_CONCAT(images.url) AS imageUrl
   FROM `products` JOIN `images` ON products.id = images.product_id
   GROUP BY images.product_id" . $whereClause;

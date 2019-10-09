@@ -25,7 +25,7 @@ class ProductList extends React.Component {
             id={product.id}
             name={product.name}
             price={product.price}
-            image={product.image}
+            image={product.imageUrl[0]}
             shortDescription={product.shortDescription}
             setView={this.props.setView} />
         );
