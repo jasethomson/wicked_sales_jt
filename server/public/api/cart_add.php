@@ -5,13 +5,13 @@ require_once 'cart.php';
 if(!INTERNAL){
   exit("Direct access not allowed.");
 }
-
+var_dump("works here");
 $bodyData = getBodyData();
-
+var_dump("works here1", $bodyData);
 if($bodyData['id'] <= 0){
   throw new Exception("Id is invalid");
 }
-
+var_dump("works here2");
 $id = $bodyData['id'];
 
 if(array_key_exists('cartID', $_SESSION)){

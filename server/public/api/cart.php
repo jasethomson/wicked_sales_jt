@@ -25,10 +25,12 @@ startup();
 require_once 'db_connection.php';
 
 define("INTERNAL", true);
-
+var_dump($_SERVER['REQUEST_METHOD']);
 switch($_SERVER['REQUEST_METHOD']){
   case 'POST':
+
     require_once 'cart_add.php';
+
     break;
   case 'GET':
     require_once 'cart_get.php';

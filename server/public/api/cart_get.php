@@ -5,12 +5,12 @@ require_once 'cart.php';
 if(!INTERNAL){
 exit("Direct access not allowed.");
 }
-
+var_dump("hello");
 if (!$_SESSION['cartID']) {
   print(json_encode([]));
   exit("we have no cart for this person");
 }
-
+var_dump("hello1");
 $cartid = intval($_SESSION['cartID']);
 
 $getQuery = "SELECT products.id, cartItems.count, products.name,
