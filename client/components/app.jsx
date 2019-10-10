@@ -3,6 +3,7 @@ import Header from './header';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
+import CheckoutForm from './checkout-form';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class App extends React.Component {
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
-
+    this.sumCost = this.sumCost.bind(this);
   }
   setView(name, params) {
     this.setState({ view: { name, params } });
@@ -47,6 +48,24 @@ class App extends React.Component {
     }
     return total;
   }
+  placeOrder(contact) {
+    let purchaseInfo = {
+      name: contact.name,
+      creditCard: contact.creditCard,
+      shippingAddress: contact.shippingAddress,
+      cart: this.state.cart
+    };
+    const req = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(purchaseInfo)
+    };
+    fetch('/api/orders.php', req)
+      .then(res => res.json())
+      .then(item => {
+        this.setState({ view: { name: 'catalog', params: {} }, cart: [] });
+      });
+  }
   render() {
     if (this.state.view.name === 'catalog') {
       return (
@@ -70,7 +89,7 @@ class App extends React.Component {
           <ProductDetails setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
         </div>
       );
-    } else {
+    } else if (this.state.view.name === 'cart') {
       return (
         <div>
           <div className="container">
@@ -86,7 +105,19 @@ class App extends React.Component {
             <CartSummary cart={this.state.cart} />
             <div className="row justify-self-start">
               <h4 className="col">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
+              <button className="col-2 mr-3 btn btn-outline-dark" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>
             </div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div className="container">
+            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView} />
+          </div>
+          <div className="container">
+            <CheckoutForm placeOrder={this.placeOrder} sumCost={this.sumCost} setView={this.setView}/>
           </div>
         </div>
       );
