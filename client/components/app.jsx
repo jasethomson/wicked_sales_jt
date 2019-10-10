@@ -16,6 +16,7 @@ class App extends React.Component {
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
+
   }
   setView(name, params) {
     this.setState({ view: { name, params } });
@@ -27,6 +28,7 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.getCartItems();
+
   }
   addToCart(product) {
     const req = {
@@ -34,17 +36,13 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(product)
     };
-    fetch('/api/cart.php', req)
-      .then(res => res.json())
-      .then(item => {
-        const allProducts = this.state.cart.concat(item);
-        this.setState({ cart: allProducts });
-      });
+    fetch('/api/cart.php', req);
+    const allProducts = this.state.cart.concat(product);
+    this.setState({ cart: allProducts });
   }
   sumCost() {
     let total = null;
     for (let priceIndex = 0; priceIndex < this.state.cart.length; priceIndex++) {
-
       total += parseFloat(this.state.cart[priceIndex].price);
     }
     return total;

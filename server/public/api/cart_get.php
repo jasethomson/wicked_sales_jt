@@ -13,19 +13,17 @@ if (!$_SESSION['cartID']) {
 
 $cartid = intval($_SESSION['cartID']);
 
-$getQuery = "SELECT products.id, cartItems.count, products.name,
- products.price, images.url, products.shortDescription FROM `cartItems`
-  JOIN `products` on products.id = cartItems.productID JOIN `images` on
-   products.id = images.product_id WHERE cartItems.id = 1 LIMIT 1";
+$getQuery = "SELECT products.id, cartItems.count, cartItems.cartID, products.name,
+ products.price, products.image, products.shortDescription, products.longDescription FROM `cartItems`
+  JOIN `products` ON products.id = cartItems.productID";
 
 $getQueryResult = mysqli_query($conn, $getQuery);
 
 if(!$getQueryResult){
   throw new Exception("Failed to getQuery");
 }
-
 $output = [];
-while ($row = mysqli_fetch_assoc($result)) {
+while ($row = mysqli_fetch_assoc($getQueryResult)) {
   $output[] = $row;
 }
 
