@@ -71,7 +71,7 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
           <div className="container">
             <div className="row">
