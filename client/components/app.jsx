@@ -28,6 +28,7 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.getCartItems();
+
   }
   addToCart(product) {
     const req = {
