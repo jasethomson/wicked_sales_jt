@@ -2,7 +2,6 @@ import React from 'react';
 import CartSummaryItem from './cart-summary-item';
 
 function CartSummary(props) {
-
   if (props.cart) {
     return (
       props.cart.map(item => {

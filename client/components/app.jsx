@@ -16,6 +16,7 @@ class App extends React.Component {
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
+
   }
   setView(name, params) {
     this.setState({ view: { name, params } });
