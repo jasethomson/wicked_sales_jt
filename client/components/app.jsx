@@ -103,7 +103,7 @@ class App extends React.Component {
               <h4 className="col">My Cart</h4>
             </div>
             <CartSummary cart={this.state.cart} />
-            <div className="row justify-self-start">
+            <div className="row justify-self-start mb-4">
               <h4 className="col">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
               <button className="col-2 mr-3 btn btn-outline-dark" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>
             </div>
