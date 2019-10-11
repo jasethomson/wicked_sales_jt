@@ -2,6 +2,7 @@ import React from 'react';
 import ProductListItem from './product-list-item';
 
 class ProductList extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +18,6 @@ class ProductList extends React.Component {
       .then(products => this.setState({ products }));
   }
   render() {
-
     return (
       this.state.products.map(product => {
         return (
@@ -26,7 +26,7 @@ class ProductList extends React.Component {
             id={product.id}
             name={product.name}
             price={product.price}
-            image={product.imageUrl[0]}
+            image={product.imageUrl[2]}
             shortDescription={product.shortDescription}
             setView={this.props.setView} />
         );
