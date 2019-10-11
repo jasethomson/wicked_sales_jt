@@ -71,7 +71,7 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
           <div className="container">
             <div className="row">
@@ -103,7 +103,7 @@ class App extends React.Component {
               <h4 className="col">My Cart</h4>
             </div>
             <CartSummary cart={this.state.cart} />
-            <div className="row justify-self-start">
+            <div className="row justify-self-start mb-4">
               <h4 className="col">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
               <button className="col-2 mr-3 btn btn-outline-dark" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>
             </div>
