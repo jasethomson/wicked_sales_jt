@@ -16,7 +16,7 @@
 
 
   $query = "SELECT products.id, products.name, products.price, products.shortDescription, products.longDescription,
-  GROUP_CONCAT(images.url) AS imageUrl
+  GROUP_CONCAT(DISTINCT images.url ORDER BY images.url ASC) AS imageUrl
   FROM `products` JOIN `images` ON products.id = images.product_id"
   . $whereClause;
 

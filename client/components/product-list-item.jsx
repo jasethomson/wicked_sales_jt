@@ -4,7 +4,7 @@ function ProductListItem(props) {
 
   return (
     <div className="px-1 col-3 mt-5 d-flex my-2">
-      <div className="bg-light card col-12">
+      <div className="bg-secondary card col-12">
         <div>
           <img className="card-img-top mt-4" style={{ height: '340px' }} src={props.image} alt="Card image cap"></img>
         </div>
