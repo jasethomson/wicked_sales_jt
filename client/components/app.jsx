@@ -70,11 +70,11 @@ class App extends React.Component {
     if (this.state.view.name === 'catalog') {
       return (
         <div>
-          <div className="container">
+          <div className="">
             <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
-          <div className="container">
-            <div className="row">
+          <div className="">
+            <div className="justify-content-md-center mr-2 ml-2 row">
               <ProductList setView={this.setView} />
             </div>
           </div>

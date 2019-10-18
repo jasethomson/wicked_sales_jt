@@ -26,8 +26,6 @@
     throw new Exception("Connect Failed: " . mysqli_error($conn));
   }
 
-
-
   $row_cnt = mysqli_num_rows($result);
   if (!empty($_GET['id']) && $row_cnt === 0) {
     throw new Exception("Invalid ID: " . $_GET['id'] . mysqli_error($conn));

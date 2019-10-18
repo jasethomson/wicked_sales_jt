@@ -2,6 +2,21 @@
   height: 5vh;
   width: 3vw;
 }
+
+.font{
+    font-family: 'Lexend Zetta', sans-serif;
+    font-weight: bold;
+}
+
 .title{
   font-family: 'Lexend Zetta', sans-serif;
+  color: white;
+}
+
+.fa-shopping-cart {
+  color: white;
+}
+
+body {
+  background-color: maroon;
 }
