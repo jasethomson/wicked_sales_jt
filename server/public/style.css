@@ -20,3 +20,11 @@
 body {
   background-color: maroon;
 }
+
+.card{
+  background-color: antiquewhite;
+}
+
+.card-title:hover{
+  cursor: pointer;
+}
