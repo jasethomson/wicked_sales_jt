@@ -73,6 +73,10 @@ class App extends React.Component {
           <div className="">
             <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
+          <div className="row">
+            <div className="jchan font text-center">Coffee is a <br></br>language in itself.<br></br> <div id="chan" className="d-flex justify-content-center">-Jackie Chan</div></div>
+            <img className="banner-image mt-3" src="images/coffee-shop.jpg" alt="Coffee Bar Image" />
+          </div>
           <div className="">
             <div className="justify-content-md-center mr-2 ml-2 row">
               <ProductList setView={this.setView} />
