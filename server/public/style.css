@@ -27,6 +27,7 @@ body {
 
 .card-title:hover{
   cursor: pointer;
+  color: brown;
 }
 
 .banner-image{
@@ -45,4 +46,14 @@ body {
 
 #chan{
   font-size: 1rem;
+}
+
+.carousel-item > img {
+  height: 50vh;
+  width: 25vw;
+}
+
+.carousel {
+  height: 50vh;
+  width: 25vw;
 }

@@ -74,7 +74,7 @@ class App extends React.Component {
             <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
           <div className="row">
-            <div className="jchan font text-center">Coffee is a <br></br>language in itself.<br></br> <div id="chan" className="d-flex justify-content-center">-Jackie Chan</div></div>
+            {/* <div className="jchan font text-center">Coffee is a <br></br>language in itself.<br></br> <div id="chan" className="d-flex justify-content-center">-Jackie Chan</div></div> */}
             <img className="banner-image mt-3" src="images/coffee-shop.jpg" alt="Coffee Bar Image" />
           </div>
           <div className="">
@@ -88,7 +88,7 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
           <ProductDetails setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
         </div>
@@ -97,7 +97,7 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
           <div className="container">
             <div className="row justify-self-start">
@@ -118,7 +118,7 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView} />
+            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView} />
           </div>
           <div className="container">
             <CheckoutForm placeOrder={this.placeOrder} sumCost={this.sumCost} setView={this.setView}/>
