@@ -19,18 +19,22 @@ class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.sumCost = this.sumCost.bind(this);
   }
+
   setView(name, params) {
     this.setState({ view: { name, params } });
   }
+
   getCartItems() {
     fetch('/api/cart.php')
       .then(res => res.json())
       .then(cart => this.setState({ cart }));
   }
+
   componentDidMount() {
     this.getCartItems();
 
   }
+
   addToCart(product) {
     const req = {
       method: 'POST',
@@ -40,7 +44,9 @@ class App extends React.Component {
     fetch('/api/cart.php', req);
     const allProducts = this.state.cart.concat(product);
     this.setState({ cart: allProducts });
+    this.getCartItems();
   }
+
   sumCost() {
     let total = null;
     for (let priceIndex = 0; priceIndex < this.state.cart.length; priceIndex++) {
@@ -48,6 +54,7 @@ class App extends React.Component {
     }
     return total;
   }
+
   placeOrder(contact) {
     let purchaseInfo = {
       name: contact.name,
@@ -66,6 +73,7 @@ class App extends React.Component {
         this.setState({ view: { name: 'catalog', params: {} }, cart: [] });
       });
   }
+
   render() {
     if (this.state.view.name === 'catalog') {
       return (
