@@ -41,10 +41,10 @@ class ProductDetails extends React.Component {
                     <h3 className="card-title" onClick={() => this.props.setView('details', { id: this.state.product[0].id })}>{this.state.product[0].name}</h3>
                     <p className="card-text" style={{ 'fontSize': '1.5rem' }}>${((this.state.product[0].price / 100).toFixed(2))}</p>
                     <p className="card-text" style={{ 'fontSize': '1.4rem' }}>{this.state.product[0].shortDescription}</p>
-                    <div className="numItems d-flex justify-content-start">
-                      <i id="up" className="fas fa-chevron-up" onClick={event => this.numOfItems(event)}></i>
-                      <div className="itemCount">{this.state.items}</div>
-                      <i id="down" className="fas fa-chevron-down" onClick={event => this.numOfItems(event)}></i>
+                    <div className="numItems d-flex justify-content-start mb-2">
+                      <button id="down" className="mr-2 btn btn-outline-dark" onClick={event => this.numOfItems(event)}>—</button>
+                      <div className="countNum mt-1 mr-2">{this.state.items}</div>
+                      <button id="up" className="btn btn-outline-dark" onClick={event => this.numOfItems(event)}>＋</button>
                     </div>
                     <button className="btn btn-outline-dark" onClick={() => this.props.addToCart(this.state.product[0])}>Add to Cart</button>
                   </div>
