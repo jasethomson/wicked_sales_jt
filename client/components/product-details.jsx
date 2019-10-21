@@ -1,4 +1,5 @@
 import React from 'react';
+import Coffee from './carousel';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -18,11 +19,11 @@ class ProductDetails extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-12">
-              <button className="btn btn-link" onClick={() => { this.props.setView('catalog', {}); }}>Back To Catalog</button>
+              <button className="btn btn-link text-white" onClick={() => { this.props.setView('catalog', {}); }}>Back To Catalog</button>
               <div className="card row">
                 <div className="card-body row">
                   <div className="col-6">
-                    <img className="card-img-top" src={this.state.product[0].imageUrl[0]} alt="Card image cap"></img>
+                    <Coffee className="card-img-top" images={this.state.product[0].imageUrl}/>
                   </div>
                   <div className="col-6">
                     <h3 className="card-title" onClick={() => this.props.setView('details', { id: this.state.product[0].id })}>{this.state.product[0].name}</h3>

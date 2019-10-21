@@ -9,7 +9,7 @@ function CartSummaryItem(props) {
         </div>
         <div className="col-md-8">
           <div className="card-body">
-            <h5 className="card-title">{props.name}</h5>
+            <h5 className="card-title" onClick={() => props.setView('details', { id: props.id })}>{props.name}</h5>
             <p className="card-text">${((props.price / 100).toFixed(2))}</p>
             <p className="card-text">{props.shortDescription}</p>
           </div>

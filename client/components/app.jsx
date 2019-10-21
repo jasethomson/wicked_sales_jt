@@ -19,18 +19,22 @@ class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.sumCost = this.sumCost.bind(this);
   }
+
   setView(name, params) {
     this.setState({ view: { name, params } });
   }
+
   getCartItems() {
     fetch('/api/cart.php')
       .then(res => res.json())
       .then(cart => this.setState({ cart }));
   }
+
   componentDidMount() {
     this.getCartItems();
 
   }
+
   addToCart(product) {
     const req = {
       method: 'POST',
@@ -40,7 +44,9 @@ class App extends React.Component {
     fetch('/api/cart.php', req);
     const allProducts = this.state.cart.concat(product);
     this.setState({ cart: allProducts });
+    this.getCartItems();
   }
+
   sumCost() {
     let total = null;
     for (let priceIndex = 0; priceIndex < this.state.cart.length; priceIndex++) {
@@ -48,6 +54,7 @@ class App extends React.Component {
     }
     return total;
   }
+
   placeOrder(contact) {
     let purchaseInfo = {
       name: contact.name,
@@ -66,15 +73,20 @@ class App extends React.Component {
         this.setState({ view: { name: 'catalog', params: {} }, cart: [] });
       });
   }
+
   render() {
     if (this.state.view.name === 'catalog') {
       return (
         <div>
-          <div className="container">
+          <div className="">
             <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
-          <div className="container">
-            <div className="row">
+          <div className="row">
+            {/* <div className="jchan font text-center">Coffee is a <br></br>language in itself.<br></br> <div id="chan" className="d-flex justify-content-center">-Jackie Chan</div></div> */}
+            <img className="banner-image mt-3" src="images/coffee-shop.jpg" alt="Coffee Bar Image" />
+          </div>
+          <div className="">
+            <div className="justify-content-md-center mr-2 ml-2 row">
               <ProductList setView={this.setView} />
             </div>
           </div>
@@ -84,7 +96,7 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
           <ProductDetails setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
         </div>
@@ -93,19 +105,19 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
           </div>
           <div className="container">
             <div className="row justify-self-start">
-              <button className="d-flex col btn btn-link" onClick={() => { this.setView('catalog', {}); }}>Back To Catalog</button>
+              <button className="d-flex col btn btn-link text-white" onClick={() => { this.setView('catalog', {}); }}>Back To Catalog</button>
             </div>
             <div className="row justify-self-start">
-              <h4 className="col">My Cart</h4>
+              <h4 className="col text-white">My Cart</h4>
             </div>
-            <CartSummary cart={this.state.cart} />
+            <CartSummary cart={this.state.cart} setView={this.setView}/>
             <div className="row justify-self-start mb-4">
-              <h4 className="col">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
-              <button className="col-2 mr-3 btn btn-outline-dark" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>
+              <h4 className="col text-white">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
+              <button className="col-2 mr-3 btn btn-outline-light" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>
             </div>
           </div>
         </div>
@@ -114,7 +126,7 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="Wicked Sales" cartItemCount={this.state.cart.length} setView={this.setView} />
+            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView} />
           </div>
           <div className="container">
             <CheckoutForm placeOrder={this.placeOrder} sumCost={this.sumCost} setView={this.setView}/>
