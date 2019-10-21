@@ -114,7 +114,7 @@ class App extends React.Component {
             <div className="row justify-self-start">
               <h4 className="col text-white">My Cart</h4>
             </div>
-            <CartSummary cart={this.state.cart} />
+            <CartSummary cart={this.state.cart} setView={this.setView}/>
             <div className="row justify-self-start mb-4">
               <h4 className="col text-white">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
               <button className="col-2 mr-3 btn btn-outline-light" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>

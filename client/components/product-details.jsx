@@ -24,7 +24,6 @@ class ProductDetails extends React.Component {
                 <div className="card-body row">
                   <div className="col-6">
                     <Coffee className="card-img-top" images={this.state.product[0].imageUrl}/>
-                    {/* <img className="card-img-top" src={this.state.product[0].imageUrl[0]} alt="Card image cap"></img> */}
                   </div>
                   <div className="col-6">
                     <h3 className="card-title" onClick={() => this.props.setView('details', { id: this.state.product[0].id })}>{this.state.product[0].name}</h3>

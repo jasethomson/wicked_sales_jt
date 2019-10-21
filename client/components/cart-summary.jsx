@@ -12,7 +12,8 @@ function CartSummary(props) {
             name={item.name}
             price={item.price}
             image={item.imageName}
-            shortDescription={item.shortDescription} />
+            shortDescription={item.shortDescription}
+            setView={props.setView}/>
         );
       })
     );
