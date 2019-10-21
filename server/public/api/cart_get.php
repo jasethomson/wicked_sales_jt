@@ -14,8 +14,9 @@ if (!$_SESSION['cartID']) {
 $cartid = intval($_SESSION['cartID']);
 
 $getQuery = "SELECT products.id, cartItems.count, cartItems.cartID, products.name,
- products.price, products.image, products.shortDescription, products.longDescription FROM `cartItems`
-  JOIN `products` ON products.id = cartItems.productID";
+ products.price, products.shortDescription, products.longDescription, (SELECT images.url
+FROM `images` WHERE images.product_id = products.id ORDER BY images.product_id ASC LIMIT 1) as imageName
+ FROM `cartItems` JOIN `products` ON products.id = cartItems.productID ";
 
 $getQueryResult = mysqli_query($conn, $getQuery);
 

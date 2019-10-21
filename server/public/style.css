@@ -2,6 +2,68 @@
   height: 5vh;
   width: 3vw;
 }
+
+.font{
+    font-family: 'Lexend Zetta', sans-serif;
+    font-weight: bold;
+}
+
 .title{
   font-family: 'Lexend Zetta', sans-serif;
+  color: white;
+}
+
+.fa-shopping-cart {
+  color: white;
+}
+
+body {
+  background-color: maroon;
+}
+
+.card{
+  background-color: antiquewhite;
+}
+
+.card-title:hover,
+.fa-shopping-cart:hover,
+.header:hover{
+  cursor: pointer;
+}
+
+.card-title:hover{
+  color: brown;
+}
+
+.fa-shopping-cart:hover,
+.header:hover{
+  color: black;
+}
+
+.banner-image{
+  width: 100%;
+}
+
+.jchan {
+    position: absolute;
+    top: 350px;
+    left: 650px;
+    font-size: 2.4rem;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 5%;
+}
+
+#chan{
+  font-size: 1rem;
+}
+
+.carousel-item > img {
+  height: 50vh;
+  width: 25vw;
+}
+
+.carousel {
+  height: 50vh;
+  width: 25vw;
 }
