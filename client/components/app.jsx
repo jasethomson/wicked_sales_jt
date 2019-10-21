@@ -74,12 +74,34 @@ class App extends React.Component {
       });
   }
 
+  numOfItems(event) {
+    let itemsCopy = this.state.items;
+    if (event.currentTarget.id === 'up' && itemsCopy >= 1) {
+      itemsCopy += 1;
+    } else if (event.currentTarget.id === 'down' && itemsCopy > 1) {
+      itemsCopy -= 1;
+    }
+    this.setState({ items: itemsCopy });
+  }
+
+  sumItemsInCart() {
+    let countOfCart = 0;
+    for (let currentItem = 0; currentItem < this.state.cart.length; currentItem++) {
+      let currentAddition = parseInt(this.state.cart[currentItem].count);
+      countOfCart += currentAddition;
+    }
+    return countOfCart;
+  }
+
   render() {
+    if (this.state.cart) {
+      this.cartAmount = this.sumItemsInCart();
+    }
     if (this.state.view.name === 'catalog') {
       return (
         <div>
           <div className="">
-            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView}/>
           </div>
           <div className="row">
             {/* <div className="jchan font text-center">Coffee is a <br></br>language in itself.<br></br> <div id="chan" className="d-flex justify-content-center">-Jackie Chan</div></div> */}
@@ -96,16 +118,16 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView}/>
           </div>
-          <ProductDetails setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
+          <ProductDetails numOfItems={this.numOfItems} setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
         </div>
       );
     } else if (this.state.view.name === 'cart') {
       return (
         <div>
           <div className="container">
-            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView}/>
           </div>
           <div className="container">
             <div className="row justify-self-start">
@@ -114,7 +136,7 @@ class App extends React.Component {
             <div className="row justify-self-start">
               <h4 className="col text-white">My Cart</h4>
             </div>
-            <CartSummary cart={this.state.cart} setView={this.setView}/>
+            <CartSummary numOfItems={this.numOfItems} cart={this.state.cart} setView={this.setView}/>
             <div className="row justify-self-start mb-4">
               <h4 className="col text-white">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
               <button className="col-2 mr-3 btn btn-outline-light" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>
@@ -126,7 +148,7 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView} />
+            <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView} />
           </div>
           <div className="container">
             <CheckoutForm placeOrder={this.placeOrder} sumCost={this.sumCost} setView={this.setView}/>
