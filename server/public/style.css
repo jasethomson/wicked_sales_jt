@@ -25,9 +25,19 @@ body {
   background-color: antiquewhite;
 }
 
-.card-title:hover{
+.card-title:hover,
+.fa-shopping-cart:hover,
+.header:hover{
   cursor: pointer;
+}
+
+.card-title:hover{
   color: brown;
+}
+
+.fa-shopping-cart:hover,
+.header:hover{
+  color: black;
 }
 
 .banner-image{
