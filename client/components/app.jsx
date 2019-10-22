@@ -51,6 +51,16 @@ class App extends React.Component {
       .finally(() => this.getCartItems());
   }
 
+  updateCart(item) {
+    const req = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(item)
+    };
+
+    fetch('/api/cart_update.php', req);
+  }
+
   sumCost() {
     let total = null;
     for (let priceIndex = 0; priceIndex < this.state.cart.length; priceIndex++) {
@@ -79,7 +89,6 @@ class App extends React.Component {
   }
 
   numOfItems(event) {
-
     if (this.state.view === 'details') {
       let itemsCopy = this.state.items;
       let productCopy = this.state.product;
@@ -107,12 +116,13 @@ class App extends React.Component {
 
       if (event.currentTarget.className === 'btn btn-outline-dark up' && itemsCopy >= 1) {
         itemsCopy += 1;
-        // this.addToCart(product);
+
       } else if (event.currentTarget.className === 'mr-2 btn btn-outline-dark down' && itemsCopy > 1) {
         itemsCopy -= 1;
       }
 
       cartCopy[index].count = itemsCopy;
+      this.updateCart(cartCopy[index]);
       this.setState({ cart: cartCopy });
     }
 
@@ -169,7 +179,7 @@ class App extends React.Component {
             <div className="row justify-self-start">
               <h4 className="col text-white">My Cart</h4>
             </div>
-            <CartSummary addToCart={this.addToCart} product={this.state.product} addnumOfItems={this.numOfItems} cart={this.state.cart} setView={this.setView}/>
+            <CartSummary numOfItems={this.numOfItems} cart={this.state.cart} setView={this.setView}/>
             <div className="row justify-self-start mb-4">
               <h4 className="col text-white">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
               <button className="col-2 mr-3 btn btn-outline-light" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>
