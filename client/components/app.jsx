@@ -18,6 +18,8 @@ class App extends React.Component {
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.sumCost = this.sumCost.bind(this);
+    this.numOfItems = this.numOfItems.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   setView(name, params) {
@@ -77,13 +79,43 @@ class App extends React.Component {
   }
 
   numOfItems(event) {
-    let itemsCopy = this.state.items;
-    if (event.currentTarget.id === 'up' && itemsCopy >= 1) {
-      itemsCopy += 1;
-    } else if (event.currentTarget.id === 'down' && itemsCopy > 1) {
-      itemsCopy -= 1;
+
+    if (this.state.view === 'details') {
+      let itemsCopy = this.state.items;
+      let productCopy = this.state.product;
+      if (event.currentTarget.id === 'up' && itemsCopy >= 1) {
+        itemsCopy += 1;
+      } else if (event.currentTarget.id === 'down' && itemsCopy > 1) {
+        itemsCopy -= 1;
+      }
+      productCopy[0].count = itemsCopy;
+      this.setState({
+        items: itemsCopy,
+        product: productCopy
+      });
+    } else {
+      let cartCopy = this.state.cart;
+      let itemsCopy = null;
+      let index = null;
+
+      for (index = 0; index < cartCopy.length; index++) {
+        if (cartCopy[index].id === event.currentTarget.id) {
+          itemsCopy = parseInt(cartCopy[index].count);
+          break;
+        }
+      }
+
+      if (event.currentTarget.className === 'btn btn-outline-dark up' && itemsCopy >= 1) {
+        itemsCopy += 1;
+        // this.addToCart(product);
+      } else if (event.currentTarget.className === 'mr-2 btn btn-outline-dark down' && itemsCopy > 1) {
+        itemsCopy -= 1;
+      }
+
+      cartCopy[index].count = itemsCopy;
+      this.setState({ cart: cartCopy });
     }
-    this.setState({ items: itemsCopy });
+
   }
 
   sumItemsInCart() {
@@ -102,13 +134,13 @@ class App extends React.Component {
     if (this.state.view.name === 'catalog') {
       return (
         <div>
-          <div className="">
+          <div>
             <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView}/>
           </div>
           <div className="row">
             <img className="banner-image mt-3" src="images/coffee-shop.jpg" alt="Coffee Bar Image" />
           </div>
-          <div className="">
+          <div>
             <div className="justify-content-md-center mr-2 ml-2 row">
               <ProductList setView={this.setView} />
             </div>
@@ -137,7 +169,7 @@ class App extends React.Component {
             <div className="row justify-self-start">
               <h4 className="col text-white">My Cart</h4>
             </div>
-            <CartSummary numOfItems={this.numOfItems} cart={this.state.cart} setView={this.setView}/>
+            <CartSummary addToCart={this.addToCart} product={this.state.product} addnumOfItems={this.numOfItems} cart={this.state.cart} setView={this.setView}/>
             <div className="row justify-self-start mb-4">
               <h4 className="col text-white">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
               <button className="col-2 mr-3 btn btn-outline-light" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>

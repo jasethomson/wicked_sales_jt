@@ -60,9 +60,9 @@ class ProductDetails extends React.Component {
                     <p className="card-text" style={{ 'fontSize': '1.5rem' }}>${((this.state.product[0].price / 100).toFixed(2))}</p>
                     <p className="card-text" style={{ 'fontSize': '1.4rem' }}>{this.state.product[0].shortDescription}</p>
                     <div className="numItems d-flex justify-content-start mb-2">
-                      <button id="down" className="mr-2 btn btn-outline-dark" onClick={event => this.numOfItems(event)}>—</button>
+                      <button id="down" className="mr-2 btn btn-outline-dark down" onClick={event => this.numOfItems(event)}>—</button>
                       <div className="countNum mt-1 mr-2">{this.state.items}</div>
-                      <button id="up" className="btn btn-outline-dark" onClick={event => this.numOfItems(event)}>＋</button>
+                      <button id="up" className="btn btn-outline-dark up" onClick={event => this.numOfItems(event)}>＋</button>
                     </div>
                     <button className="btn btn-outline-dark" onClick={() => this.props.addToCart(this.state.product[0])}>Add to Cart</button>
                   </div>

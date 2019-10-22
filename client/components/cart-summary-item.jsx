@@ -13,9 +13,9 @@ function CartSummaryItem(props) {
             <p className="card-text">${((props.price / 100).toFixed(2))}</p>
             <p className="card-text">{props.shortDescription}</p>
             <div className="numItems d-flex justify-content-start mb-2">
-              <button id="down" className="mr-2 btn btn-outline-dark" onClick={event => props.numOfItems(event)}>—</button>
+              <button id={props.id} className="mr-2 btn btn-outline-dark down" onClick={event => props.numOfItems(event)}>—</button>
               <div className="countNum mt-1 mr-2">{props.count}</div>
-              <button id="up" className="btn btn-outline-dark" onClick={event => props.numOfItems(event)}>＋</button>
+              <button id={props.id} className='btn btn-outline-dark up' onClick={event => props.numOfItems(event)}>＋</button>
             </div>
           </div>
         </div>
