@@ -1,6 +1,5 @@
-.logo {
-  height: 5vh;
-  width: 3vw;
+body {
+  background-color: maroon;
 }
 
 .font{
@@ -15,10 +14,6 @@
 
 .fa-shopping-cart {
   color: white;
-}
-
-body {
-  background-color: maroon;
 }
 
 .card{
@@ -66,4 +61,8 @@ body {
 .carousel {
   height: 50vh;
   width: 25vw;
+}
+
+.countNum {
+  font-size: 1.2rem;
 }

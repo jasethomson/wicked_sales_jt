@@ -18,6 +18,8 @@ class App extends React.Component {
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.sumCost = this.sumCost.bind(this);
+    this.numOfItems = this.numOfItems.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   setView(name, params) {
@@ -32,7 +34,6 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getCartItems();
-
   }
 
   addToCart(product) {
@@ -41,16 +42,29 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(product)
     };
-    fetch('/api/cart.php', req);
-    const allProducts = this.state.cart.concat(product);
-    this.setState({ cart: allProducts });
-    this.getCartItems();
+
+    fetch('/api/cart.php', req)
+      .then(() => {
+        const allProducts = this.state.cart.concat(product);
+        this.setState({ cart: allProducts });
+      })
+      .finally(() => this.getCartItems());
+  }
+
+  updateCart(item) {
+    const req = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(item)
+    };
+
+    fetch('/api/cart_update.php', req);
   }
 
   sumCost() {
     let total = null;
     for (let priceIndex = 0; priceIndex < this.state.cart.length; priceIndex++) {
-      total += parseFloat(this.state.cart[priceIndex].price);
+      total += parseFloat(this.state.cart[priceIndex].price) * parseFloat(this.state.cart[priceIndex].count);
     }
     return total;
   }
@@ -74,18 +88,69 @@ class App extends React.Component {
       });
   }
 
+  numOfItems(event) {
+    if (this.state.view === 'details') {
+      let itemsCopy = this.state.items;
+      let productCopy = this.state.product;
+      if (event.currentTarget.id === 'up' && itemsCopy >= 1) {
+        itemsCopy += 1;
+      } else if (event.currentTarget.id === 'down' && itemsCopy > 1) {
+        itemsCopy -= 1;
+      }
+      productCopy[0].count = itemsCopy;
+      this.setState({
+        items: itemsCopy,
+        product: productCopy
+      });
+    } else {
+      let cartCopy = this.state.cart;
+      let itemsCopy = null;
+      let index = null;
+
+      for (index = 0; index < cartCopy.length; index++) {
+        if (cartCopy[index].id === event.currentTarget.id) {
+          itemsCopy = parseInt(cartCopy[index].count);
+          break;
+        }
+      }
+
+      if (event.currentTarget.className === 'btn btn-outline-dark up' && itemsCopy >= 1) {
+        itemsCopy += 1;
+
+      } else if (event.currentTarget.className === 'mr-2 btn btn-outline-dark down' && itemsCopy > 1) {
+        itemsCopy -= 1;
+      }
+
+      cartCopy[index].count = itemsCopy;
+      this.updateCart(cartCopy[index]);
+      this.setState({ cart: cartCopy });
+    }
+
+  }
+
+  sumItemsInCart() {
+    let countOfCart = 0;
+    for (let currentItem = 0; currentItem < this.state.cart.length; currentItem++) {
+      let currentAddition = parseInt(this.state.cart[currentItem].count);
+      countOfCart += currentAddition;
+    }
+    return countOfCart;
+  }
+
   render() {
+    if (this.state.cart) {
+      this.cartAmount = this.sumItemsInCart();
+    }
     if (this.state.view.name === 'catalog') {
       return (
         <div>
-          <div className="">
-            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
+          <div>
+            <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView}/>
           </div>
           <div className="row">
-            {/* <div className="jchan font text-center">Coffee is a <br></br>language in itself.<br></br> <div id="chan" className="d-flex justify-content-center">-Jackie Chan</div></div> */}
             <img className="banner-image mt-3" src="images/coffee-shop.jpg" alt="Coffee Bar Image" />
           </div>
-          <div className="">
+          <div>
             <div className="justify-content-md-center mr-2 ml-2 row">
               <ProductList setView={this.setView} />
             </div>
@@ -96,16 +161,16 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView}/>
           </div>
-          <ProductDetails setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
+          <ProductDetails numOfItems={this.numOfItems} setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
         </div>
       );
     } else if (this.state.view.name === 'cart') {
       return (
         <div>
           <div className="container">
-            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView}/>
+            <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView}/>
           </div>
           <div className="container">
             <div className="row justify-self-start">
@@ -114,7 +179,7 @@ class App extends React.Component {
             <div className="row justify-self-start">
               <h4 className="col text-white">My Cart</h4>
             </div>
-            <CartSummary cart={this.state.cart} setView={this.setView}/>
+            <CartSummary numOfItems={this.numOfItems} cart={this.state.cart} setView={this.setView}/>
             <div className="row justify-self-start mb-4">
               <h4 className="col text-white">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
               <button className="col-2 mr-3 btn btn-outline-light" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>
@@ -126,7 +191,7 @@ class App extends React.Component {
       return (
         <div>
           <div className="container">
-            <Header text="BrewSource" cartItemCount={this.state.cart.length} setView={this.setView} />
+            <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView} />
           </div>
           <div className="container">
             <CheckoutForm placeOrder={this.placeOrder} sumCost={this.sumCost} setView={this.setView}/>

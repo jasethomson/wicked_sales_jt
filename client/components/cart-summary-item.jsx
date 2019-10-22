@@ -12,6 +12,11 @@ function CartSummaryItem(props) {
             <h5 className="card-title" onClick={() => props.setView('details', { id: props.id })}>{props.name}</h5>
             <p className="card-text">${((props.price / 100).toFixed(2))}</p>
             <p className="card-text">{props.shortDescription}</p>
+            <div className="numItems d-flex justify-content-start mb-2">
+              <button id={props.id} className="mr-2 btn btn-outline-dark down" onClick={event => props.numOfItems(event)}>—</button>
+              <div className="countNum mt-1 mr-2">{props.count}</div>
+              <button id={props.id} className='btn btn-outline-dark up' onClick={event => props.numOfItems(event)}>＋</button>
+            </div>
           </div>
         </div>
       </div>

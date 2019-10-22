@@ -12,7 +12,10 @@ if($bodyData['id'] <= 0){
   throw new Exception("Id is invalid");
 }
 
+
 $id = $bodyData['id'];
+
+$count = $bodyData['count'];
 
 if(array_key_exists('cartID', $_SESSION)){
   $cartID = $_SESSION['cartID'];
@@ -67,8 +70,8 @@ $price  = $productData[0]['price'];
 
 $insertToTableQuery = "INSERT INTO `cartItems`
 (`count`, `productID`, `price`, `added`, `cartID`)
- VALUES (1, $id, $price, NOW(), $cartID)
- ON DUPLICATE KEY UPDATE `count`=`count`+1";
+ VALUES ($count, $id, $price, NOW(), $cartID)
+ ON DUPLICATE KEY UPDATE `count`=`count`+$count";
 
 $insertToTableResult = mysqli_query($conn, $insertToTableQuery);
 
