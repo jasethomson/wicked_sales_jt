@@ -32,7 +32,6 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getCartItems();
-
   }
 
   addToCart(product) {
@@ -41,16 +40,19 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(product)
     };
-    fetch('/api/cart.php', req);
-    const allProducts = this.state.cart.concat(product);
-    this.setState({ cart: allProducts });
-    this.getCartItems();
+
+    fetch('/api/cart.php', req)
+      .then(() => {
+        const allProducts = this.state.cart.concat(product);
+        this.setState({ cart: allProducts });
+      })
+      .finally(() => this.getCartItems());
   }
 
   sumCost() {
     let total = null;
     for (let priceIndex = 0; priceIndex < this.state.cart.length; priceIndex++) {
-      total += parseFloat(this.state.cart[priceIndex].price);
+      total += parseFloat(this.state.cart[priceIndex].price) * parseFloat(this.state.cart[priceIndex].count);
     }
     return total;
   }
@@ -104,7 +106,6 @@ class App extends React.Component {
             <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView}/>
           </div>
           <div className="row">
-            {/* <div className="jchan font text-center">Coffee is a <br></br>language in itself.<br></br> <div id="chan" className="d-flex justify-content-center">-Jackie Chan</div></div> */}
             <img className="banner-image mt-3" src="images/coffee-shop.jpg" alt="Coffee Bar Image" />
           </div>
           <div className="">

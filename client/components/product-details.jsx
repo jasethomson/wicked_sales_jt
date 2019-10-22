@@ -9,20 +9,38 @@ class ProductDetails extends React.Component {
       items: 1
     };
   }
+
   componentDidMount() {
     fetch('/api/products.php?id=' + this.props.view.id)
       .then(res => res.json())
-      .then(product => this.setState({ product }));
+      .then(product => this.setState({ product }))
+      .finally(() => this.setCount());
   }
 
   numOfItems(event) {
     let itemsCopy = this.state.items;
+    let productCopy = this.state.product;
     if (event.currentTarget.id === 'up' && itemsCopy >= 1) {
       itemsCopy += 1;
     } else if (event.currentTarget.id === 'down' && itemsCopy > 1) {
       itemsCopy -= 1;
     }
-    this.setState({ items: itemsCopy });
+    productCopy[0].count = itemsCopy;
+    this.setState({
+      items: itemsCopy,
+      product: productCopy
+    });
+  }
+
+  setCount() {
+    if (!this.state.countSet) {
+      let productCopy = this.state.product;
+      productCopy[0].count = 1;
+      this.setState({
+        product: productCopy,
+        countSet: true
+      });
+    }
   }
 
   render() {
