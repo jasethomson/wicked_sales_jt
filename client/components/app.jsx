@@ -4,13 +4,14 @@ import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
+import Confirmation from './confirmation';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: {
-        name: 'catalog',
+        name: 'confirmation',
         params: {}
       },
       cart: []
@@ -202,7 +203,7 @@ class App extends React.Component {
           </div>
         </div>
       );
-    } else {
+    } else if (this.state.view.name === 'checkout') {
       return (
         <div>
           <div className="container">
@@ -210,6 +211,17 @@ class App extends React.Component {
           </div>
           <div className="container">
             <CheckoutForm placeOrder={this.placeOrder} sumCost={this.sumCost} setView={this.setView}/>
+          </div>
+        </div>
+      );
+    } else if (this.state.view.name === 'confirmation') {
+      return (
+        <div>
+          <div className="container">
+            <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView} />
+          </div>
+          <div className="container">
+            <Confirmation sumCost={this.sumCost} setView={this.setView} />
           </div>
         </div>
       );
