@@ -83,7 +83,7 @@ class CheckoutForm extends React.Component {
         </div>
         <div className="form-group">
           <label className="text-white" htmlFor="address">Address</label>
-          <input id="address" type="text" className="form-control" placeholder="1234 Main St" onChange={this.handleChange} pattern="\d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*\"></input>
+          <input id="address" type="text" className="form-control" placeholder="1234 Main St" onChange={this.handleChange}></input>
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
