@@ -8,7 +8,6 @@ class CheckoutForm extends React.Component {
       lastName: 'you',
       creditCard: '',
       address: '',
-      address2: '',
       city: '',
       state: '',
       zip: ''
@@ -34,10 +33,6 @@ class CheckoutForm extends React.Component {
       this.setState({
         address: event.target.value
       });
-    } else if (event.target.id === 'address2') {
-      this.setState({
-        address2: event.target.value
-      });
     } else if (event.target.id === 'city') {
       this.setState({
         city: event.target.value
@@ -62,12 +57,11 @@ class CheckoutForm extends React.Component {
       lastName: 'you',
       creditCard: '',
       address: '',
-      address2: '',
       city: '',
       state: '',
       zip: ''
     });
-    this.setView('confirmation', {});
+    this.props.setView('confirmation', {});
   }
 
   render() {
@@ -90,10 +84,6 @@ class CheckoutForm extends React.Component {
         <div className="form-group">
           <label className="text-white" htmlFor="address">Address</label>
           <input id="address" type="text" className="form-control" placeholder="1234 Main St" onChange={this.handleChange}></input>
-        </div>
-        <div className="form-group">
-          <label className="text-white" htmlFor="address2">Address 2</label>
-          <input id="address2" type="text" className="form-control" placeholder="Apartment, studio, or floor" onChange={this.handleChange}></input>
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">

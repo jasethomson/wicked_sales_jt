@@ -21,6 +21,7 @@ class App extends React.Component {
     this.sumCost = this.sumCost.bind(this);
     this.numOfItems = this.numOfItems.bind(this);
     this.deleteFromCart = this.deleteFromCart.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
   }
 
   setView(name, params) {
@@ -82,22 +83,22 @@ class App extends React.Component {
   }
 
   placeOrder(contact) {
-    // let purchaseInfo = {
-    //   name: contact.name,
-    //   creditCard: contact.creditCard,
-    //   shippingAddress: contact.shippingAddress,
-    //   cart: this.state.cart
-    // };
-    // const req = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(purchaseInfo)
-    // };
-    // fetch('/api/orders.php', req)
-    //   .then(res => res.json())
-    //   .then(item => {
-    //     this.setState({ view: { name: 'catalog', params: {} }, cart: [] });
-    //   });
+    let purchaseInfo = {
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      creditCard: contact.creditCard,
+      address: contact.address,
+      city: contact.city,
+      state: contact.state,
+      zip: contact.zip,
+      cart: this.state.cart
+    };
+    const req = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(purchaseInfo)
+    };
+    fetch('/api/orders.php', req);
   }
 
   numOfItems(event) {
