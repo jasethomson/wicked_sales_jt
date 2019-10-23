@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'confirmation',
+        name: 'catalog',
         params: {}
       },
       cart: []
@@ -58,7 +58,6 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(item)
     };
-
     fetch('/api/cart_update.php', req);
   }
 
@@ -131,7 +130,6 @@ class App extends React.Component {
 
       if (event.currentTarget.className === 'btn btn-outline-dark up' && itemsCopy >= 1) {
         itemsCopy += 1;
-
       } else if (event.currentTarget.className === 'mr-2 btn btn-outline-dark down' && itemsCopy > 1) {
         itemsCopy -= 1;
       }
@@ -149,7 +147,6 @@ class App extends React.Component {
       let currentAddition = parseInt(this.state.cart[currentItem].count);
       countOfCart += currentAddition;
     }
-
     return countOfCart;
   }
 
@@ -221,7 +218,7 @@ class App extends React.Component {
             <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView} />
           </div>
           <div className="container">
-            <Confirmation sumCost={this.sumCost} setView={this.setView} />
+            <Confirmation setView={this.setView} />
           </div>
         </div>
       );
