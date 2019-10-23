@@ -4,9 +4,14 @@ class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'hello',
+      firstName: 'hello',
+      lastName: 'you',
       creditCard: '',
-      address: ''
+      address: '',
+      address2: '',
+      city: '',
+      state: '',
+      zip: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,37 +36,46 @@ class CheckoutForm extends React.Component {
   }
   render() {
     return (
-      <div className="container ">
-        <div className="row justify-content-center">
-          <div className="col-10 text-white">
-            <h4>Checkout</h4>
-            <div>Order Total: ${(this.props.sumCost() / 100).toFixed(2)}</div>
+      <form className="mt-5">
+        <div className="form-row">
+          <div className="col">
+            <label className="text-white" htmlFor="inputAddress">First name</label>
+            <input type="text" className="form-control" placeholder="First name"></input>
+          </div>
+          <div className="col mb-3">
+            <label className="text-white" htmlFor="inputAddress">Last name</label>
+            <input type="text" className="form-control" placeholder="Last name"></input>
           </div>
         </div>
-        <form onSubmit={this.handleSubmit}>
-          <div className="row justify-content-center">
-            <div className="mt-4 col-10 text-white">
-            Name<input className="name form-control" type="text" onChange={this.handleChange} />
-            </div>
+        <div className="form-group">
+          <label className="text-white" htmlFor="inputZip">Credit Card</label>
+          <input type="text" className="form-control" id="creditCard"></input>
+        </div>
+        <div className="form-group">
+          <label className="text-white" htmlFor="inputAddress">Address</label>
+          <input type="text" className="form-control" id="inputAddress" placeholder="1234 Main St"></input>
+        </div>
+        <div className="form-group">
+          <label className="text-white" htmlFor="inputAddress2">Address 2</label>
+          <input type="text" className="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"></input>
+        </div>
+        <div className="form-row">
+          <div className="form-group col-md-6">
+            <label className="text-white" htmlFor="inputCity">City</label>
+            <input type="text" className="form-control" id="inputCity"></input>
           </div>
-          <div className="row justify-content-center">
-            <div className="mt-3 col-10 text-white">
-            Credit Card<input className="creditCard form-control" type="text" onChange={this.handleChange} />
-            </div>
+          <div className="form-group col-md-4">
+            <label className="text-white" htmlFor="inputState">State</label>
+            <input type="text" className="form-control" id="inputState"></input>
           </div>
-          <div className="row justify-content-center">
-            <div className="mt-3 col-10 text-white">
-            Shipping Address<textarea className="address form-control" type="text" onChange={this.handleChange} />
-            </div>
+          <div className="form-group col-md-2">
+            <label className="text-white" htmlFor="inputZip">Zip</label>
+            <input type="text" className="form-control" id="inputZip"></input>
           </div>
-          <div className="container col-10">
-            <div className=" row justify-content-between">
-              <button type="reset" className="d-flex col-3 mt-3 px-0 btn btn-link text-white" onReset={() => { this.props.setView('catalog'); }}>Continue Shopping</button>
-              <button type="submit" className="d-flex col-2 mt-3 btn btn-outline-light" onSubmit={() => { this.props.placeOrder('catalog', {}); }}>Place Order</button>
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
+        <button type="submit" className="btn btn-primary" onSubmit={() => { this.props.placeOrder('catalog', {}); }}>Submit Order</button>
+      </form>
+
     );
   }
 }

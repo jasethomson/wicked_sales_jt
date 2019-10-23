@@ -82,22 +82,22 @@ class App extends React.Component {
   }
 
   placeOrder(contact) {
-    let purchaseInfo = {
-      name: contact.name,
-      creditCard: contact.creditCard,
-      shippingAddress: contact.shippingAddress,
-      cart: this.state.cart
-    };
-    const req = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(purchaseInfo)
-    };
-    fetch('/api/orders.php', req)
-      .then(res => res.json())
-      .then(item => {
-        this.setState({ view: { name: 'catalog', params: {} }, cart: [] });
-      });
+    // let purchaseInfo = {
+    //   name: contact.name,
+    //   creditCard: contact.creditCard,
+    //   shippingAddress: contact.shippingAddress,
+    //   cart: this.state.cart
+    // };
+    // const req = {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(purchaseInfo)
+    // };
+    // fetch('/api/orders.php', req)
+    //   .then(res => res.json())
+    //   .then(item => {
+    //     this.setState({ view: { name: 'catalog', params: {} }, cart: [] });
+    //   });
   }
 
   numOfItems(event) {
