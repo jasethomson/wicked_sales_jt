@@ -99,6 +99,18 @@ class App extends React.Component {
       body: JSON.stringify(purchaseInfo)
     };
     fetch('/api/orders.php', req);
+
+    let cartStateCopy = this.state.cart;
+    for (let cartItem = 0; cartItem < cartStateCopy.length; cartItem++) {
+      let currentProduct = cartStateCopy[cartItem];
+      const req = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(currentProduct)
+      };
+      fetch('/api/cart_delete.php', req);
+    }
+    this.setState({ cart: [] });
   }
 
   numOfItems(event) {
