@@ -15,7 +15,8 @@ function CartSummary(props) {
             image={item.imageName}
             shortDescription={item.shortDescription}
             setView={props.setView}
-            numOfItems={props.numOfItems}/>
+            numOfItems={props.numOfItems}
+            deleteFromCart={props.deleteFromCart}/>
         );
       })
     );
