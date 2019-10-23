@@ -4,6 +4,7 @@ import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
+import Confirmation from './confirmation';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class App extends React.Component {
     this.sumCost = this.sumCost.bind(this);
     this.numOfItems = this.numOfItems.bind(this);
     this.deleteFromCart = this.deleteFromCart.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
   }
 
   setView(name, params) {
@@ -57,7 +59,6 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(item)
     };
-
     fetch('/api/cart_update.php', req);
   }
 
@@ -83,9 +84,13 @@ class App extends React.Component {
 
   placeOrder(contact) {
     let purchaseInfo = {
-      name: contact.name,
+      firstName: contact.firstName,
+      lastName: contact.lastName,
       creditCard: contact.creditCard,
-      shippingAddress: contact.shippingAddress,
+      address: contact.address,
+      city: contact.city,
+      state: contact.state,
+      zip: contact.zip,
       cart: this.state.cart
     };
     const req = {
@@ -93,11 +98,19 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(purchaseInfo)
     };
-    fetch('/api/orders.php', req)
-      .then(res => res.json())
-      .then(item => {
-        this.setState({ view: { name: 'catalog', params: {} }, cart: [] });
-      });
+    fetch('/api/orders.php', req);
+
+    let cartStateCopy = this.state.cart;
+    for (let cartItem = 0; cartItem < cartStateCopy.length; cartItem++) {
+      let currentProduct = cartStateCopy[cartItem];
+      const req = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(currentProduct)
+      };
+      fetch('/api/cart_delete.php', req);
+    }
+    this.setState({ cart: [] });
   }
 
   numOfItems(event) {
@@ -130,7 +143,6 @@ class App extends React.Component {
 
       if (event.currentTarget.className === 'btn btn-outline-dark up' && itemsCopy >= 1) {
         itemsCopy += 1;
-
       } else if (event.currentTarget.className === 'mr-2 btn btn-outline-dark down' && itemsCopy > 1) {
         itemsCopy -= 1;
       }
@@ -148,7 +160,6 @@ class App extends React.Component {
       let currentAddition = parseInt(this.state.cart[currentItem].count);
       countOfCart += currentAddition;
     }
-
     return countOfCart;
   }
 
@@ -202,7 +213,7 @@ class App extends React.Component {
           </div>
         </div>
       );
-    } else {
+    } else if (this.state.view.name === 'checkout') {
       return (
         <div>
           <div className="container">
@@ -210,6 +221,17 @@ class App extends React.Component {
           </div>
           <div className="container">
             <CheckoutForm placeOrder={this.placeOrder} sumCost={this.sumCost} setView={this.setView}/>
+          </div>
+        </div>
+      );
+    } else if (this.state.view.name === 'confirmation') {
+      return (
+        <div>
+          <div className="container">
+            <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView} />
+          </div>
+          <div className="container">
+            <Confirmation setView={this.setView} />
           </div>
         </div>
       );
