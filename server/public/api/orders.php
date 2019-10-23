@@ -1,18 +1,36 @@
 <?php
 
-header('Content-Type: application/json');
+require_once 'functions.php';
+set_exception_handler('error_handler');
+startup();
+require_once 'db_connection.php';
 
-$method = $_SERVER['REQUEST_METHOD'];
-$order = file_get_contents('php://input');
+$bodyData = getBodyData();
 
-if ($method != 'POST') {
-  http_response_code(404);
-  print(json_encode([
-    'error' => 'Not Found',
-    'message' => "Cannot $method /api/orders.php"
-  ]));
-} else {
-  http_response_code(201);
-  print($order);
+
+if (!$bodyData['firstName']) {
+  throw new Exception("There is no firstName");
 }
+
+
+$firstName = $bodyData['firstName'];
+$lastName = $bodyData['lastName'];
+$creditCard = $bodyData['creditCard'];
+$address = $bodyData['address'];
+$city = $bodyData['city'];
+$state = $bodyData['state'];
+$zip = $bodyData['zip'];
+
+$orderQuery = "INSERT INTO `orders`
+  (`firstName`, `lastName`, `creditCard`, `address`, `city`, `state`, `zip`)
+  VALUES ( '$firstName', '$lastName', '$creditCard', '$address', '$city', '$state', $zip)";
+
+var_dump("orderQuery: ", $orderQuery);
+
+$orderResult = mysqli_query($conn, $orderQuery);
+
+if (!$orderResult) {
+  throw new Exception("failed to send result" . $orderResult);
+}
+
 ?>
