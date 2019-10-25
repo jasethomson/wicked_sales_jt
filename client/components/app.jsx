@@ -5,6 +5,7 @@ import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
 import Confirmation from './confirmation';
+import LandingModal from './modal';
 
 class App extends React.Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class App extends React.Component {
         name: 'catalog',
         params: {}
       },
-      cart: []
+      cart: [],
+      modal: true
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -22,6 +24,7 @@ class App extends React.Component {
     this.numOfItems = this.numOfItems.bind(this);
     this.deleteFromCart = this.deleteFromCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   setView(name, params) {
@@ -163,6 +166,10 @@ class App extends React.Component {
     return countOfCart;
   }
 
+  closeModal() {
+    this.setState({ modal: false });
+  }
+
   render() {
     if (this.state.cart) {
       this.cartAmount = this.sumItemsInCart();
@@ -170,6 +177,7 @@ class App extends React.Component {
     if (this.state.view.name === 'catalog') {
       return (
         <div>
+          { this.state.modal ? <LandingModal closeModal={this.closeModal}/> : null}
           <div>
             <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView}/>
           </div>
