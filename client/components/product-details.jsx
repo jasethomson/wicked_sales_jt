@@ -50,7 +50,7 @@ class ProductDetails extends React.Component {
           <div className="row">
             <div className="col-12">
               <button className="btn btn-link text-white" onClick={() => { this.props.setView('catalog', {}); }}>Back To Catalog</button>
-              <div className="card row">
+              <div className="card">
                 <div className="card-body row">
                   <div className="col-6">
                     <Coffee className="card-img-top" images={this.state.product[0].imageUrl}/>

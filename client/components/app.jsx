@@ -173,7 +173,7 @@ class App extends React.Component {
           <div>
             <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView}/>
           </div>
-          <div className="row">
+          <div>
             <img className="banner-image mt-3" src="images/coffee-shop.jpg" alt="Coffee Bar Image" />
           </div>
           <div>

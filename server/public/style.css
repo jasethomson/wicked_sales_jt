@@ -37,6 +37,7 @@ body {
 
 .banner-image{
   width: 100%;
+  height: 56vh;
 }
 
 .jchan {
@@ -84,13 +85,13 @@ body {
 /* ipad portait */
 @media only screen and  (min-width: 737px) and (max-width: 768px) {
   .carousel-item > img {
-    height: 35vh;
-    width: 45vw;
+    height: 30vh;
+    width: 40vw;
   }
 
   .carousel {
-    height: 35vh;
-    width: 45vw;
+    height: 30vh;
+    width: 40vw;
   }
   .card-title{
     font-size: 1.5rem;
@@ -99,6 +100,13 @@ body {
 
 /* iphone 6/7/8 landscape */
 @media only screen and  (min-width: 601px) and (max-width: 736px){
+
+  .listwork{
+    width: 80vw;
+    margin-left: 10vw;
+  }
+
+
   .carousel-item > img {
     height: 50vh;
     width: 35vw;
@@ -108,18 +116,19 @@ body {
     height: 50vh;
     width: 35vw;
   }
+
 }
 
 /* iphone 6/7/8 portait */
 @media only screen and  (min-width: 0px) and (max-width: 600px) {
   .carousel-item > img {
-    height: 35vh;
-    width: 45vw;
+    height: 30vh;
+    width: 40vw;
   }
 
   .carousel {
-    height: 35vh;
-    width: 45vw;
+    height: 30vh;
+    width: 40vw;
   }
 
     .card-title{
@@ -128,5 +137,10 @@ body {
 
   h1.header {
     font-size: 2rem;
+  }
+
+  .banner-image{
+    width: 100%;
+    height: 40vh;
   }
 }
