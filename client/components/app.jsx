@@ -16,7 +16,9 @@ class App extends React.Component {
         params: {}
       },
       cart: [],
-      modal: true
+      modal: true,
+      purchAddress: {},
+      purchCart: []
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -85,7 +87,7 @@ class App extends React.Component {
     return total;
   }
 
-  placeOrder(contact) {
+  placeOrder(contact, cartSum) {
     let purchaseInfo = {
       firstName: contact.firstName,
       lastName: contact.lastName,
@@ -111,7 +113,12 @@ class App extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(currentProduct)
       };
-      fetch('/api/cart_delete.php', req);
+      fetch('/api/cart_delete.php', req)
+        .finally(() => this.setState({
+          purchAddress: purchaseInfo,
+          purchCart: cartSum,
+          lastFour: this.grabDigits(purchaseInfo.creditCard)
+        }));
     }
     this.setState({ cart: [] });
   }
@@ -168,6 +175,23 @@ class App extends React.Component {
 
   closeModal() {
     this.setState({ modal: false });
+  }
+
+  grabDigits(creditCard) {
+    let cardLength = creditCard.length - 1;
+    let lastFour = creditCard[cardLength - 3];
+    lastFour += creditCard[cardLength - 2];
+    lastFour += creditCard[cardLength - 1];
+    lastFour += creditCard[cardLength];
+    return lastFour;
+  }
+
+  sumPurchase(cart) {
+    let total = null;
+    for (let priceIndex = 0; priceIndex < cart.length; priceIndex++) {
+      total += parseFloat(cart[priceIndex].price) * parseFloat(cart[priceIndex].count);
+    }
+    return total;
   }
 
   render() {
@@ -228,7 +252,7 @@ class App extends React.Component {
             <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView} />
           </div>
           <div className="container">
-            <CheckoutForm placeOrder={this.placeOrder} sumCost={this.sumCost} setView={this.setView}/>
+            <CheckoutForm cart={this.state.cart} placeOrder={this.placeOrder} sumCost={this.sumCost} setView={this.setView}/>
           </div>
         </div>
       );
@@ -239,7 +263,7 @@ class App extends React.Component {
             <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView} />
           </div>
           <div className="container">
-            <Confirmation setView={this.setView} />
+            <Confirmation sumPurchase={this.sumPurchase} lastFour={this.state.lastFour} purchCart={this.state.purchCart} purchAddress={this.state.purchAddress} setView={this.setView} />
           </div>
         </div>
       );
