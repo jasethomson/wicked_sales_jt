@@ -116,7 +116,8 @@ class App extends React.Component {
       fetch('/api/cart_delete.php', req)
         .finally(() => this.setState({
           purchAddress: purchaseInfo,
-          purchCart: cartSum
+          purchCart: cartSum,
+          lastFour: this.grabDigits(purchaseInfo.creditCard)
         }));
     }
     this.setState({ cart: [] });
@@ -174,6 +175,23 @@ class App extends React.Component {
 
   closeModal() {
     this.setState({ modal: false });
+  }
+
+  grabDigits(creditCard) {
+    let cardLength = creditCard.length - 1;
+    let lastFour = creditCard[cardLength - 3];
+    lastFour += creditCard[cardLength - 2];
+    lastFour += creditCard[cardLength - 1];
+    lastFour += creditCard[cardLength];
+    return lastFour;
+  }
+
+  sumPurchase(cart) {
+    let total = null;
+    for (let priceIndex = 0; priceIndex < cart.length; priceIndex++) {
+      total += parseFloat(cart[priceIndex].price) * parseFloat(cart[priceIndex].count);
+    }
+    return total;
   }
 
   render() {
@@ -245,7 +263,7 @@ class App extends React.Component {
             <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView} />
           </div>
           <div className="container">
-            <Confirmation purchCart={this.state.purchCart} purchAddress={this.state.purchState} setView={this.setView} />
+            <Confirmation sumPurchase={this.sumPurchase} lastFour={this.state.lastFour} purchCart={this.state.purchCart} purchAddress={this.state.purchAddress} setView={this.setView} />
           </div>
         </div>
       );

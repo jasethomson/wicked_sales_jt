@@ -10,7 +10,7 @@ function ConfirmationItem(props) {
         <div className="col-md-8">
           <div className="card-body">
             <h5 className="card-title">{props.name}</h5>
-            <p className="card-text">${(props.count * (props.price / 100).toFixed(2))}</p>
+            <p className="card-text">Total Cost: ${((props.count * (props.price / 100)).toFixed(2))}</p>
             <p className="card-text">{props.shortDescription}</p>
             <div className="numItems d-flex justify-content-start mb-2">
               <div className="countNum mt-1 mr-2">Qty. {props.count}</div>
