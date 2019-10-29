@@ -51,7 +51,8 @@ class CheckoutForm extends React.Component {
   handleSubmit() {
     event.preventDefault();
     let contact = this.state;
-    this.props.placeOrder(contact);
+
+    this.props.placeOrder(contact, this.props.cart);
     this.setState({
       firstName: 'hello',
       lastName: 'you',
