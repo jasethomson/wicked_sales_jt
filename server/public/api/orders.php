@@ -25,7 +25,6 @@ $orderQuery = "INSERT INTO `orders`
   (`firstName`, `lastName`, `creditCard`, `address`, `city`, `state`, `zip`)
   VALUES ( '$firstName', '$lastName', '$creditCard', '$address', '$city', '$state', $zip)";
 
-var_dump("orderQuery: ", $orderQuery);
 
 $orderResult = mysqli_query($conn, $orderQuery);
 
