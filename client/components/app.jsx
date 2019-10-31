@@ -251,7 +251,7 @@ class App extends React.Component {
           <div className="container">
             <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView} />
           </div>
-          <div className="container">
+          <div className="container checkoutScreen mt-2">
             <CheckoutForm cart={this.state.cart} placeOrder={this.placeOrder} sumCost={this.sumCost} setView={this.setView}/>
           </div>
         </div>
