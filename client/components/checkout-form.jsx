@@ -3,66 +3,159 @@ import React from 'react';
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      firstName: 'hello',
-      lastName: 'you',
-      creditCard: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: ''
-    };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.state = {
+      firstName: null,
+      lastName: null,
+      creditCard: null,
+      address: null,
+      city: null,
+      state: null,
+      zip: null,
+      formErrors: {
+        firstName: '',
+        lastName: '',
+        creditCard: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: ''
+      },
+      earlySubmit: ''
+    };
+
+  }
+
+  formValid(submission) {
+    let errorsCopy = submission.formErrors;
+    let firstNameCopy = submission.firstName;
+    let lastNameCopy = submission.lastName;
+    let creditCardCopy = submission.creditCard;
+    let addressCopy = submission.address;
+    let cityCopy = submission.city;
+    let stateCopy = submission.state;
+    let zipCopy = submission.zip;
+    let valid = true;
+
+    Object.values(errorsCopy).forEach(val => {
+      val.length > 0 && (valid = false);
+    });
+
+    if (!firstNameCopy) {
+      valid = false;
+    } else if (!lastNameCopy) {
+      valid = false;
+    } else if (!creditCardCopy) {
+      valid = false;
+    } else if (!addressCopy) {
+      valid = false;
+    } else if (!cityCopy) {
+      valid = false;
+    } else if (!stateCopy) {
+      valid = false;
+    } else if (!zipCopy) {
+      valid = false;
+    }
+
+    return valid;
   }
 
   handleChange(event) {
-    if (event.target.id === 'firstName') {
-      this.setState({
-        firstName: event.target.value
-      });
-    } else if (event.target.id === 'lastName') {
-      this.setState({
-        lastName: event.target.value
-      });
-    } else if (event.target.id === 'creditCard') {
-      this.setState({
-        creditCard: event.target.value
-      });
-    } else if (event.target.id === 'address') {
-      this.setState({
-        address: event.target.value
-      });
-    } else if (event.target.id === 'city') {
-      this.setState({
-        city: event.target.value
-      });
-    } else if (event.target.id === 'state') {
-      this.setState({
-        state: event.target.value
-      });
-    } else if (event.target.id === 'zip') {
-      this.setState({
-        zip: event.target.value
-      });
+    event.preventDefault();
+    const { name, value } = event.target;
+    let formErrors = this.state.formErrors;
+
+    const ccRegex = RegExp(
+      /^\d{4}([ -]?)((\d{6}\1?\d{5})|(\d{4}\1?\d{4}\1?\d{4}))$/
+    );
+
+    const letterRegex = RegExp(
+      /^[a-zA-Z\s]*$/
+    );
+
+    const zipRegex = RegExp(
+      /^[0-9]{5}(?:-[0-9]{4})?$/
+    );
+
+    switch (name) {
+      case 'firstName':
+        formErrors.firstName =
+          letterRegex.test(value)
+            ? ''
+            : 'must input valid name, letters only';
+        break;
+      case 'lastName':
+        formErrors.lastName =
+          letterRegex.test(value)
+            ? ''
+            : 'must input valid name, letters only';
+        break;
+      case 'creditCard':
+        formErrors.creditCard =
+          ccRegex.test(value)
+            ? ''
+            : 'invalid credit card number';
+        break;
+      case 'address':
+        formErrors.address =
+          value.length < 6
+            ? 'mininum 6 characters required'
+            : '';
+        break;
+      case 'city':
+        formErrors.city =
+          letterRegex.test(value)
+            ? ''
+            : 'must input valid city, letters only';
+        break;
+      case 'state':
+        formErrors.state =
+          letterRegex.test(value)
+            ? ''
+            : 'must input valid state, letters only';
+        break;
+      case 'zip':
+        formErrors.zip =
+          zipRegex.test(value)
+            ? ''
+            : 'must input valid zip code, numbers only';
+        break;
     }
+    this.setState({ formErrors, [name]: value });
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
     event.preventDefault();
     let contact = this.state;
 
-    this.props.placeOrder(contact, this.props.cart);
-    this.setState({
-      firstName: 'hello',
-      lastName: 'you',
-      creditCard: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: ''
-    });
-    this.props.setView('confirmation', {});
+    if (this.formValid(this.state)) {
+      this.props.placeOrder(contact, this.props.cart);
+      this.setState({
+        firstName: null,
+        lastName: null,
+        creditCard: null,
+        address: null,
+        city: null,
+        state: null,
+        zip: null,
+        formErrors: {
+          firstName: '',
+          lastName: '',
+          creditCard: '',
+          address: '',
+          city: '',
+          state: '',
+          zip: ''
+        },
+        earlySubmit: ''
+      });
+      this.props.setView('confirmation', {});
+    } else {
+      this.setState({ earlySubmit: 'Please correctly fill out all fields before submitting.' });
+    }
   }
 
   render() {
