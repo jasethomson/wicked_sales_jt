@@ -159,41 +159,114 @@ class CheckoutForm extends React.Component {
   }
 
   render() {
+    const { formErrors } = this.state;
+
     return (
-      <form onSubmit={this.handleSubmit} className="mt-5">
+      <form onSubmit={this.handleSubmit} className="mt-5" noValidate>
         <div className="form-row">
           <div className="col">
             <label className="text-white" htmlFor="firstName">First name</label>
-            <input id="firstName" type="text" className="form-control" placeholder="First name" onChange={this.handleChange} pattern="[a-zA-Z\-'\s]+"></input>
+            <input
+              id="firstName"
+              type="text"
+              className={formErrors.firstName.length > 0 ? 'error form-control' : 'form-control'}
+              placeholder="First name"
+              name="firstName"
+              noValidate
+              onChange={this.handleChange} />
+            {formErrors.firstName.length > 0 && (
+              <span className="text-danger">{formErrors.firstName}</span>
+            )}
           </div>
           <div className="col mb-3">
             <label className="text-white" htmlFor="lastName">Last name</label>
-            <input id="lastName" type="text" className="form-control" placeholder="Last name" onChange={this.handleChange} pattern="[a-zA-Z\-'\s]+"></input>
+            <input
+              id="lastName"
+              type="text"
+              className={formErrors.lastName.length > 0 ? 'error form-control' : 'form-control'}
+              placeholder="Last name"
+              name="lastName"
+              noValidate
+              onChange={this.handleChange} />
+            {formErrors.lastName.length > 0 && (
+              <span className="text-danger">{formErrors.lastName}</span>
+            )}
           </div>
         </div>
         <div className="form-group">
           <label className="text-white" htmlFor="creditCard">Credit Card</label>
-          <input id="creditCard" type="text" className="form-control" onChange={this.handleChange} pattern="\b(?:\d[ -]*?){13,16}\b"></input>
+          <input
+            id="creditCard"
+            type="text"
+            className={formErrors.lastName.length > 0 ? 'error form-control' : 'form-control'}
+            placeholder="xxxx-xxxx-xxxx-xxxx"
+            name="creditCard"
+            noValidate
+            onChange={this.handleChange} />
+          {formErrors.creditCard.length > 0 && (
+            <span className="text-danger">{formErrors.creditCard}</span>
+          )}
         </div>
         <div className="form-group">
           <label className="text-white" htmlFor="address">Address</label>
-          <input id="address" type="text" className="form-control" placeholder="1234 Main St" onChange={this.handleChange}></input>
+          <input
+            id="address"
+            type="text"
+            className={formErrors.address.length > 0 ? 'error form-control' : 'form-control'}
+            placeholder="1234 Main St"
+            name="address"
+            noValidate
+            onChange={this.handleChange} />
+          {formErrors.address.length > 0 && (
+            <span className="text-danger">{formErrors.address}</span>
+          )}
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
             <label className="text-white" htmlFor="city">City</label>
-            <input id="city" type="text" className="form-control" onChange={this.handleChange} pattern="[a-zA-Z\-'\s]+"></input>
+            <input
+              id="city"
+              type="text"
+              className={formErrors.city.length > 0 ? 'error form-control' : 'form-control'}
+              placeholder="City"
+              name="city"
+              noValidate
+              onChange={this.handleChange} />
+            {formErrors.city.length > 0 && (
+              <span className="text-danger">{formErrors.city}</span>
+            )}
           </div>
           <div className="form-group col-md-4">
             <label className="text-white" htmlFor="state">State</label>
-            <input id="state" type="text" className="form-control" onChange={this.handleChange} pattern="[a-zA-Z\-'\s]+"></input>
+            <input
+              id="state"
+              type="text"
+              className={formErrors.state.length > 0 ? 'error form-control' : 'form-control'}
+              placeholder="State"
+              name="state"
+              noValidate
+              onChange={this.handleChange} />
+            {formErrors.state.length > 0 && (
+              <span className="text-danger">{formErrors.state}</span>
+            )}
           </div>
           <div className="form-group col-md-2">
             <label className="text-white" htmlFor="zip">Zip</label>
-            <input id="zip" type="text" className="form-control" onChange={this.handleChange} pattern="^\d{5,}$"></input>
+            <input
+              id="zip"
+              type="text"
+              className={formErrors.zip.length > 0 ? 'error form-control' : 'form-control'}
+              placeholder="Zip Code"
+              name="zip"
+              noValidate
+              onChange={this.handleChange} />
+            {formErrors.zip.length > 0 && (
+              <span className="text-danger">{formErrors.zip}</span>
+            )}
           </div>
         </div>
         <button type="submit" className="btn btn-primary">Submit Order</button>
+        <div className="text-danger">{this.state.earlySubmit}</div>
       </form>
 
     );
