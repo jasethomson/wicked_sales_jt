@@ -2,7 +2,7 @@ import React from 'react';
 import CartSummaryItem from './cart-summary-item';
 
 function CartSummary(props) {
-  if (props.cart) {
+  if (props.cart.length > 0) {
     return (
       props.cart.map(item => {
         return (
@@ -22,7 +22,7 @@ function CartSummary(props) {
     );
   } else {
     return (
-      <div>No items in cart</div>
+      <h4 className="text-white no-items">No items in cart</h4>
     );
   }
 }
