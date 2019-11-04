@@ -20,6 +20,12 @@ body {
   background-color: antiquewhite;
 }
 
+.checkoutScreen{
+  background-color: antiquewhite;
+  color: maroon;
+  border-radius: 1%;
+}
+
 .card-title:hover,
 .fa-shopping-cart:hover,
 .header:hover{
@@ -70,6 +76,15 @@ body {
 
 .confirmationContents{
   background-color: antiquewhite;
+}
+
+.no-items{
+  border: 1px solid white;
+}
+
+.invalidInput{
+  color: black;
+  background-color: lightcoral;
 }
 
 /* ipad landscape */
