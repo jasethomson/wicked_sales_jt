@@ -264,7 +264,11 @@ class App extends React.Component {
             {this.state.deleteModal ? <DeleteModal doNotDelete={this.doNotDelete} deleteFromCart={this.deleteFromCart} closeModal={this.closeModal} /> : null}
             <div className="row justify-self-start mb-4">
               <h4 className="col text-white">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
-              <button className="col-3 col-xl-2 mr-3 btn btn-outline-light checkout" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>
+              <button className="col-3 col-xl-2 mr-3 btn btn-outline-light checkout" onClick={() => {
+                if (this.state.cart.length > 0) {
+                  this.setView('checkout', {});
+                }
+              }} >Checkout</button>
             </div>
           </div>
         </div>
