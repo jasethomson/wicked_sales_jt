@@ -8,9 +8,14 @@ const DeleteModal = props => {
 
   const [modal, setModal] = useState(true);
 
+  const toggleDelete = event => {
+    setModal(!modal);
+    props.deleteFromCart(event);
+  };
+
   const toggle = () => {
     setModal(!modal);
-    props.closeModal();
+    props.doNotDelete(event);
   };
 
   return (
@@ -21,7 +26,7 @@ const DeleteModal = props => {
           Are you sure you want to delete this product from your cart?
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>OK</Button>
+          <Button color="primary" onClick={toggleDelete}>OK</Button>
           <Button color="danger" onClick={toggle}>Cancel</Button>
         </ModalFooter>
       </Modal>
