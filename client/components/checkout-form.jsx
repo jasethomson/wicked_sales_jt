@@ -73,7 +73,7 @@ class CheckoutForm extends React.Component {
     );
 
     const letterRegex = RegExp(
-      /^[a-zA-Z\s]*$/
+      /^[A-Za-z]+$/
     );
 
     const zipRegex = RegExp(
