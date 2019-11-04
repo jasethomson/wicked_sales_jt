@@ -65,11 +65,11 @@ class CheckoutForm extends React.Component {
 
   handleChange(event) {
     event.preventDefault();
-    const { name, value } = event.target;
+    let { name, value } = event.target;
     let formErrors = this.state.formErrors;
 
     const ccRegex = RegExp(
-      /^\d{4}([ -]?)((\d{6}\1?\d{5})|(\d{4}\1?\d{4}\1?\d{4}))$/
+      /^\d+$/
     );
 
     const letterRegex = RegExp(
@@ -95,7 +95,7 @@ class CheckoutForm extends React.Component {
         break;
       case 'creditCard':
         formErrors.creditCard =
-          ccRegex.test(value)
+          ccRegex.test(value) && value.length === 16
             ? ''
             : 'invalid credit card number';
         break;
@@ -124,6 +124,7 @@ class CheckoutForm extends React.Component {
             : 'must input valid zip code, numbers only';
         break;
     }
+
     this.setState({ formErrors, [name]: value });
   }
 
@@ -201,7 +202,8 @@ class CheckoutForm extends React.Component {
               id="creditCard"
               type="text"
               className={formErrors.lastName.length > 0 ? 'error form-control' : 'form-control'}
-              placeholder="xxxx-xxxx-xxxx-xxxx"
+              placeholder="xxxxxxxxxxxxxxxx"
+              maxLength="16"
               name="creditCard"
               noValidate
               onChange={this.handleChange} />
@@ -260,6 +262,7 @@ class CheckoutForm extends React.Component {
                 className={formErrors.zip.length > 0 ? 'error form-control' : 'form-control'}
                 placeholder="Zip Code"
                 name="zip"
+                maxLength="10"
                 noValidate
                 onChange={this.handleChange} />
               {formErrors.zip.length > 0 && (
