@@ -6,6 +6,7 @@ import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
 import Confirmation from './confirmation';
 import LandingModal from './modal';
+import DeleteModal from './deleteModal';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,6 +18,8 @@ class App extends React.Component {
       },
       cart: [],
       modal: true,
+      deleteModal: false,
+      deleteId: null,
       purchAddress: {},
       purchCart: []
     };
@@ -27,6 +30,8 @@ class App extends React.Component {
     this.deleteFromCart = this.deleteFromCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.renderDeleteModal = this.renderDeleteModal.bind(this);
+    this.doNotDelete = this.doNotDelete.bind(this);
   }
 
   setView(name, params) {
@@ -67,8 +72,8 @@ class App extends React.Component {
     fetch('/api/cart_update.php', req);
   }
 
-  deleteFromCart(event) {
-    let idToDelete = parseInt(event.currentTarget.id);
+  deleteFromCart() {
+    let idToDelete = parseInt(this.state.deleteId);
     let deleteId = { id: idToDelete };
     const req = {
       method: 'POST',
@@ -77,6 +82,17 @@ class App extends React.Component {
     };
     fetch('/api/cart_delete.php', req)
       .finally(() => this.getCartItems());
+    this.setState({
+      deleteModal: false,
+      deleteId: null
+    });
+  }
+
+  doNotDelete() {
+    this.setState({
+      deleteModal: false,
+      deleteId: null
+    });
   }
 
   sumCost() {
@@ -177,6 +193,13 @@ class App extends React.Component {
     this.setState({ modal: false });
   }
 
+  renderDeleteModal(id) {
+    this.setState({
+      deleteModal: true,
+      deleteId: id
+    });
+  }
+
   grabDigits(creditCard) {
     let cardLength = creditCard.length - 1;
     let lastFour = creditCard[cardLength - 3];
@@ -237,7 +260,8 @@ class App extends React.Component {
             <div className="row justify-self-start">
               <h4 className="col text-white">My Cart</h4>
             </div>
-            <CartSummary deleteFromCart={this.deleteFromCart} numOfItems={this.numOfItems} cart={this.state.cart} setView={this.setView}/>
+            <CartSummary renderDeleteModal={this.renderDeleteModal} deleteFromCart={this.deleteFromCart} numOfItems={this.numOfItems} cart={this.state.cart} setView={this.setView}/>
+            {this.state.deleteModal ? <DeleteModal doNotDelete={this.doNotDelete} deleteFromCart={this.deleteFromCart} closeModal={this.closeModal} /> : null}
             <div className="row justify-self-start mb-4">
               <h4 className="col text-white">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
               <button className="col-3 col-xl-2 mr-3 btn btn-outline-light checkout" onClick={() => { this.setView('checkout', {}); }}>Checkout</button>
