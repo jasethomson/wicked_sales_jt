@@ -19,6 +19,7 @@ class App extends React.Component {
       cart: [],
       modal: true,
       deleteModal: false,
+      deleteId: null,
       purchAddress: {},
       purchCart: []
     };
@@ -71,9 +72,8 @@ class App extends React.Component {
     fetch('/api/cart_update.php', req);
   }
 
-  deleteFromCart(event) {
-
-    let idToDelete = parseInt(event.currentTarget.id);
+  deleteFromCart() {
+    let idToDelete = parseInt(this.state.deleteId);
     let deleteId = { id: idToDelete };
     const req = {
       method: 'POST',
@@ -82,11 +82,17 @@ class App extends React.Component {
     };
     fetch('/api/cart_delete.php', req)
       .finally(() => this.getCartItems());
-    this.setState({ deleteModal: false });
+    this.setState({
+      deleteModal: false,
+      deleteId: null
+    });
   }
 
-  doNotDelete(event) {
-    this.setState({ deleteModal: false });
+  doNotDelete() {
+    this.setState({
+      deleteModal: false,
+      deleteId: null
+    });
   }
 
   sumCost() {
@@ -187,13 +193,11 @@ class App extends React.Component {
     this.setState({ modal: false });
   }
 
-  renderDeleteModal(event) {
-
-    this.setState({ deleteModal: true });
-    return (
-      // <DeleteModal />
-      <div>Hello</div>
-    );
+  renderDeleteModal(id) {
+    this.setState({
+      deleteModal: true,
+      deleteId: id
+    });
   }
 
   grabDigits(creditCard) {

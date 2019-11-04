@@ -8,14 +8,14 @@ const DeleteModal = props => {
 
   const [modal, setModal] = useState(true);
 
-  const toggleDelete = event => {
+  const toggleDelete = () => {
     setModal(!modal);
-    props.deleteFromCart(event);
+    props.deleteFromCart();
   };
 
   const toggle = () => {
     setModal(!modal);
-    props.doNotDelete(event);
+    props.doNotDelete();
   };
 
   return (

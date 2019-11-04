@@ -18,7 +18,7 @@ function CartSummaryItem(props) {
               <button id={props.id} className='btn btn-outline-dark up' onClick={event => props.numOfItems(event)}>＋</button>
             </div>
             <button id={props.id} className='btn btn-danger delete' onClick={event => {
-              props.renderDeleteModal(event);
+              props.renderDeleteModal(event.currentTarget.id);
             }}>Delete</button>
           </div>
         </div>
