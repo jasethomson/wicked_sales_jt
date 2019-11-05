@@ -1,6 +1,6 @@
 # BrewSource
 
-[Live Site](https://brawlermatch.jasethomson.com/)
+[Live Site](https://brewsource.jasethomson.com/)
 
 ## BrewSource Details
 
