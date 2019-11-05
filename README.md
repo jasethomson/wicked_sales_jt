@@ -1,67 +1,30 @@
-# wicked-sales
+# BrewSource
 
-A full stack LAMP & React shopping cart app.
+[Live Site](https://brawlermatch.jasethomson.com/)
 
-## Introduction
+## BrewSource Details
 
-For this project, you will be building a single-page React application and a dynamic PHP API.
+A full stack LAMP & React E commerce experience. Browse the top coffee machines on the market, add products to cart. Second guessing an item? No problem, navigate to your cart and click delete. Picked one for yourself but wanted to share the love with a friend? No problem, update the number to purchase directly from your cart or just navigate back to the product page and add it there. After you decide on which machines you want to purchase, click checkout from the shopping cart and fill out all fields. Please remember this is only a demo site, no products are actually for sale. After submitting your order you will be re-directed to a confirmation page showing your purchase, address and payment info.
 
-## Getting Started
+### Project Tech Stack
+- JavaScript
+- React
+- PHP
+- MySQL
+- Bootstrap
 
-1. Fork this repository to your GitHub account and clone the fork to your local `lfz` directory.
-2. Check out a `dev` branch and push it to `origin`.
-    ```
-    git push origin dev
-    ```
-3. Install all dependencies in `package.json` with NPM.
-    ```
-    npm install
-    ```
-4. Add the `wicked-sales.localhost` site to Apache by copying the provided virtual host configuration in the `server` directory to `/etc/apache2/sites-available`.
-    ```
-    sudo cp server/wicked-sales.localhost.conf /etc/apache2/sites-available
-    ```
-5. Enable the `wicked-sales.locahost` site.
-   ```
-   sudo a2ensite wicked-sales.localhost
-   ```
-6. Restart the Apache web server.
-   ```
-   sudo service apache2 restart
-   ```
-7. Start `webpack-dev-server` running the provided `"dev"` script in `package.json`.
-   ```
-   npm run dev
-   ```
-8. Open a new terminal into your development environment to test that Webpack Dev Server and Apache are working together. Send a GET request to `localhost:3000/api/products.php`.
-   ```
-   http get localhost:3000/api/products.php
-   ```
-   You should receive `200 OK` response containing a JSON `Array` of products.
+## Initial Setup
 
-## Features
+1. Fork this repo and clone your fork from your terminal
+    - Click on the Fork button, located at the top right of the page
+    - Select your Github user name to complete the fork
 
-There are [Markdown](https://guides.github.com/features/mastering-markdown/) files located in the `features` directory of this project that contain useful links and task lists for each feature of the application.
+2. Clone this repository in your terminal
+    - `git clone https://github.com/jasethomson/brewsource.git`
 
-For each Markdown file, create a new Issue on your fork's GitHub repository and paste the content of the Markdown file into the **first** comment box. Give the Issue a clear title (usually the heading at the top of the Markdown file).
+3. Navigate into the `/brewsource` directory
+    - `Open the index.html file and enjoy!`
 
-It is possible that your fork does not have Issues enabled by default.
+### Contributions
 
-![Issues Disabled](features/assets/issues-disabled.png)
-
-If you do not see an **Issues** tab at the top of your fork's page, then go to its **Settings** tab and check the box to enable **Issues**.
-
-![Issues Enabled](features/assets/issues-enabled.png)
-
-## A note about Issue numbers
-
-GitHub automatically assigns Issue numbers when you open them. The numbers that GitHub gives your Issues are not meaningful in any way other than unique identification, so the order that you open Issues doesn't really matter. It _does_ matter what order you work on each feature for the project. The name of each Markdown file in `features` includes a number designating the order in which they should be implemented.
-
-## A note about commit messages
-
-As you work through each task of a given feature, make a commit. It's good to get into the habit of making incremental progress on a project. Each commit message that you write should be concise, but descriptive enough that another developer can guess what you did in the code without having to actually read the code.
-
-## NPM Scripts
-
-- `dev` - Start Webpack Dev Server at `localhost:3000`
-- `build` - Run Webpack to build the React client into `server/public`.
+I am always looking to improve my applications, feel free to submit pull requests and reach out with suggestions, my email address is [jasethomson31@gmail.com](mailto:jasethomson31@gmail.com).
