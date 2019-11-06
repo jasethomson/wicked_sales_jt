@@ -14,22 +14,27 @@ const AddModal = props => {
     props.closeModal();
   };
 
-  const toggle = () => {
+  const toggleCart = () => {
     setModal(!modal);
     props.setView('cart', {});
+    props.closeModal();
+  };
+  const toggleDetails = () => {
+    setModal(!modal);
+    props.setView('details', props.addModalProduct.id);
     props.closeModal();
   };
 
   return (
     <div>
-      <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>BrewSource</ModalHeader>
+      <Modal isOpen={modal} toggle={toggleDetails} className={className}>
+        <ModalHeader toggle={toggleDetails}>BrewSource</ModalHeader>
         <ModalBody>
           {'Added to cart ' + props.addModalProduct.count + ' ' + props.addModalProduct.name}
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={toggleShopping}>Continue shopping</Button>
-          <Button color="danger" onClick={toggle}>Go to cart</Button>
+          <Button color="danger" onClick={toggleCart}>Go to cart</Button>
         </ModalFooter>
       </Modal>
     </div>
