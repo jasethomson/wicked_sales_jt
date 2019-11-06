@@ -26,6 +26,18 @@ body {
   border-radius: 1%;
 }
 
+.checkout:hover{
+  text-decoration: none;
+  background-color: none;
+  cursor: context-menu;
+}
+
+.checkout{
+  background-color: maroon;
+  color: maroon;
+  border: none;
+}
+
 .card-title:hover,
 .fa-shopping-cart:hover,
 .header:hover{
@@ -74,7 +86,7 @@ body {
   font-size: 1.2rem;
 }
 
-.confirmationContents{
+.confirmationontents{
   background-color: antiquewhite;
 }
 
