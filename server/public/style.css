@@ -117,12 +117,12 @@ body {
 /* ipad portait */
 @media only screen and  (min-width: 737px) and (max-width: 768px) {
   .carousel-item > img {
-    height: 30vh;
+    height: 26vh;
     width: 40vw;
   }
 
   .carousel {
-    height: 30vh;
+    height: 26vh;
     width: 40vw;
   }
   .card-title{
