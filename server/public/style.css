@@ -28,7 +28,8 @@ body {
 
 .checkout:hover{
   text-decoration: none;
-  background-color: none;
+  background-color: maroon;
+  border: none;
   cursor: context-menu;
 }
 
