@@ -52,10 +52,10 @@ class ProductDetails extends React.Component {
               <button className="btn btn-link text-white" onClick={() => { this.props.setView('catalog', {}); }}>Back To Catalog</button>
               <div className="card">
                 <div className="card-body row">
-                  <div className="col-6">
+                  <div className="col-12 col-sm-6 col-md-6 detailsImage">
                     <Coffee className="card-img-top" images={this.state.product[0].imageUrl}/>
                   </div>
-                  <div className="col-6">
+                  <div className="col-12 col-sm-6 col-md-6 ">
                     <h3 className="card-title" onClick={() => this.props.setView('details', { id: this.state.product[0].id })}>{this.state.product[0].name}</h3>
                     <p className="card-text" style={{ 'fontSize': '1.5rem' }}>${((this.state.product[0].price / 100).toFixed(2))}</p>
                     <div className="numItems d-flex justify-content-start mb-2">
