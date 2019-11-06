@@ -21,7 +21,6 @@ const AddModal = props => {
   };
   const toggleDetails = () => {
     setModal(!modal);
-    props.setView('details', props.addModalProduct.id);
     props.closeModal();
   };
 
