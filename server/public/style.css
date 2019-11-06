@@ -26,7 +26,7 @@ body {
   border-radius: 1%;
 }
 
-.checkout:hover{
+.checkoutButtonStyle:hover{
   text-decoration: none;
   background-color: maroon;
   color: maroon;
@@ -34,7 +34,7 @@ body {
   cursor: context-menu;
 }
 
-.checkout{
+.checkoutButtonStyle{
   background-color: maroon;
   color: maroon;
   border: none;
@@ -88,7 +88,7 @@ body {
   font-size: 1.2rem;
 }
 
-.confirmationontents{
+.confirmationContents{
   background-color: antiquewhite;
 }
 
