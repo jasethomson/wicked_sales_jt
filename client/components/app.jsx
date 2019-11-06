@@ -7,6 +7,7 @@ import CheckoutForm from './checkout-form';
 import Confirmation from './confirmation';
 import LandingModal from './modal';
 import DeleteModal from './deleteModal';
+import AddModal from './addModal';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,6 +21,8 @@ class App extends React.Component {
       modal: true,
       deleteModal: false,
       deleteId: null,
+      addModal: false,
+      addModalProduct: {},
       purchAddress: {},
       purchCart: []
     };
@@ -32,6 +35,7 @@ class App extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.renderDeleteModal = this.renderDeleteModal.bind(this);
     this.doNotDelete = this.doNotDelete.bind(this);
+    this.renderAddModal = this.renderAddModal.bind(this);
   }
 
   setView(name, params) {
@@ -190,13 +194,28 @@ class App extends React.Component {
   }
 
   closeModal() {
-    this.setState({ modal: false });
+    if (this.state.view.name === 'catalog') {
+      this.setState({ modal: false });
+    } else if (this.state.view.name === 'details') {
+      this.setState({
+        addModal: false,
+        addModalProduct: {}
+      });
+    }
+
   }
 
   renderDeleteModal(id) {
     this.setState({
       deleteModal: true,
       deleteId: id
+    });
+  }
+
+  renderAddModal(product) {
+    this.setState({
+      addModal: true,
+      addModalProduct: product
     });
   }
 
@@ -244,7 +263,8 @@ class App extends React.Component {
           <div className="container">
             <Header text="BrewSource" cartItemCount={this.cartAmount} setView={this.setView}/>
           </div>
-          <ProductDetails numOfItems={this.numOfItems} setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
+          <ProductDetails renderAddModal={this.renderAddModal} numOfItems={this.numOfItems} setView={this.setView} view={this.state.view.params} addToCart={this.addToCart}/>
+          {this.state.addModal ? <AddModal closeModal={this.closeModal} addModalProduct={this.state.addModalProduct} setView={this.setView} /> : null}
         </div>
       );
     } else if (this.state.view.name === 'cart') {
@@ -261,7 +281,7 @@ class App extends React.Component {
               <h4 className="col text-white">My Cart</h4>
             </div>
             <CartSummary renderDeleteModal={this.renderDeleteModal} deleteFromCart={this.deleteFromCart} numOfItems={this.numOfItems} cart={this.state.cart} setView={this.setView}/>
-            {this.state.deleteModal ? <DeleteModal doNotDelete={this.doNotDelete} deleteFromCart={this.deleteFromCart} closeModal={this.closeModal} /> : null}
+            {this.state.deleteModal ? <DeleteModal doNotDelete={this.doNotDelete} deleteFromCart={this.deleteFromCart} /> : null}
             <div className="row justify-self-start mb-4">
               <h4 className="col text-white">Item Total ${(this.sumCost() / 100).toFixed(2)}</h4>
               <button className="col-3 col-xl-2 mr-3 btn btn-outline-light checkout" onClick={() => {
